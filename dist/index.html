@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGAI 智能客服自动化测试系统</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f5f5; color: #333; }
+        .header { background: white; border-bottom: 1px solid #eee; padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
+        .logo-section { display: flex; align-items: center; gap: 16px; }
+        .logo { width: 40px; height: 40px; background: linear-gradient(135deg, #5b7cff 0%, #6b5dd6 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px; }
+        .logo-text { font-size: 14px; font-weight: bold; color: #333; }
+        .logo-sub { font-size: 10px; color: #6b7cff; letter-spacing: 2px; }
+        .nav { display: flex; gap: 32px; flex: 1; margin-left: 48px; }
+        .nav-item { display: flex; align-items: center; gap: 8px; color: #333; text-decoration: none; font-size: 14px; padding: 8px 0; cursor: pointer; border-bottom: 2px solid transparent; }
+        .nav-item:hover { color: #6b7cff; }
+        .nav-item.active { color: #6b7cff; border-bottom-color: #6b7cff; }
+        .header-right { display: flex; align-items: center; gap: 24px; }
+        .icon-btn { background: none; border: none; cursor: pointer; font-size: 20px; color: #666; }
+        .user-info { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+        .avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #5b7cff 0%, #6b5dd6 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .main { display: grid; grid-template-columns: 1fr 320px; gap: 24px; padding: 32px; }
+        .hero { background: linear-gradient(135deg, #5b7cff 0%, #7c3aed 100%); color: white; border-radius: 12px; padding: 40px; margin-bottom: 24px; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; right: -50px; top: -50px; width: 300px; height: 300px; background: rgba(255,255,255,0.1); border-radius: 50%; }
+        .hero h2 { font-size: 32px; margin-bottom: 12px; position: relative; z-index: 1; }
+        .hero p { opacity: 0.9; font-size: 14px; position: relative; z-index: 1; line-height: 1.6; }
+        .hero-buttons { display: flex; gap: 16px; margin-top: 24px; position: relative; z-index: 1; }
+        .btn { padding: 10px 24px; border-radius: 6px; border: none; font-weight: 500; cursor: pointer; font-size: 14px; }
+        .btn-primary { background: white; color: #5b7cff; }
+        .btn-secondary { background: transparent; border: 2px solid white; color: white; }
+        .btn:hover { opacity: 0.9; }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+        .stat-card { background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee; }
+        .stat-label { font-size: 12px; color: #999; margin-bottom: 8px; }
+        .stat-number { font-size: 36px; font-weight: bold; color: #333; margin-bottom: 8px; }
+        .stat-change { font-size: 12px; color: #52c41a; }
+        .sidebar { }
+        .sidebar-card { background: white; border-radius: 8px; border: 1px solid #eee; padding: 20px; }
+        .sidebar-title { font-size: 16px; font-weight: bold; color: #333; margin-bottom: 16px; }
+        .notification { padding: 12px 0; border-bottom: 1px solid #f0f0f0; display: flex; gap: 12px; }
+        .notification:last-child { border-bottom: none; }
+        .notification-icon { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold; flex-shrink: 0; }
+        .notification-content { flex: 1; }
+        .notification-text { font-size: 12px; color: #666; line-height: 1.5; }
+        .notification-time { font-size: 10px; color: #999; margin-top: 4px; }
+        .warning { background: #fff3cd; }
+        .info { background: #d1ecf1; }
+        .success { background: #d4edda; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <div class="logo">⚡</div>
+            <div>
+                <div class="logo-text">NGAI</div>
+                <div class="logo-sub">AUTOMATION TEST</div>
+            </div>
+        </div>
+        <nav class="nav">
+            <a class="nav-item active" onclick="switchPage('home')">🏠 首页</a>
+            <a class="nav-item" onclick="switchPage('dialogue')">💬 对话管理</a>
+            <a class="nav-item" onclick="switchPage('knowledge')">📚 知识库</a>
+            <a class="nav-item" onclick="switchPage('quality')">✅ 质量中心</a>
+            <a class="nav-item" onclick="switchPage('report')">📊 报表分析</a>
+        </nav>
+        <div class="header-right">
+            <button class="icon-btn">🔔</button>
+            <div class="user-info">
+                <div class="avatar">张</div>
+                <div>
+                    <div style="font-weight: 500;">张工程师</div>
+                    <div style="font-size: 12px; color: #999;">高级测试工程师</div>
+                </div>
+            </div>
+            <button class="icon-btn">⌄</button>
+        </div>
+    </div>
+
+    <div class="main">
+        <div>
+            <div class="hero">
+                <h2 id="heroTitle">欢迎回来，张工程师</h2>
+                <p id="heroText">智能自服自动化测试平台 V1.0 运行正常。当前有 3 个待优化项目，1 个产重的知识库关键要处理。</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="switchPage('quality')">▶ 开始快速测试</button>
+                    <button class="btn btn-secondary">查看系统健康度</button>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-label">活跃场景数</div>
+                    <div class="stat-number">127</div>
+                    <div class="stat-change">▲ 12% 较上周</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">知识库覆盖率</div>
+                    <div class="stat-number">92.4%</div>
+                    <div class="stat-change">目标设定: 95.0%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">平均响应延迟</div>
+                    <div class="stat-number">1.2s</div>
+                    <div class="stat-change">高优化 CPU 占用</div>
+                </div>
+            </div>
+
+            <div id="content"></div>
+        </div>
+
+        <div class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">系统通知</div>
+                <div class="notification warning">
+                    <div class="notification-icon" style="background: #ff7875;">⚠</div>
+                    <div class="notification-content">
+                        <div class="notification-text">如印象重新: 手机配件跳槽版变化日头效</div>
+                        <div class="notification-time">10秒前</div>
+                    </div>
+                </div>
+                <div class="notification info">
+                    <div class="notification-icon" style="background: #1890ff;">ℹ</div>
+                    <div class="notification-content">
+                        <div class="notification-text">整点完成: 口罪查询改行回回回测试, 100% 适过</div>
+                        <div class="notification-time">1小时前</div>
+                    </div>
+                </div>
+                <div class="notification success">
+                    <div class="notification-icon" style="background: #52c41a;">✓</div>
+                    <div class="notification-content">
+                        <div class="notification-text">资源预览: 节点「对话」服」改份表现 85%</div>
+                        <div class="notification-time">2小时前</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const pages = {
+            home: {
+                heroTitle: '欢迎回来，张工程师',
+                heroText: '智能自服自动化测试平台 V1.0 运行正常。当前有 3 个待优化项目，1 个产重的知识库关键要处理。',
+                content: ''
+            },
+            dialogue: {
+                heroTitle: '对话管理',
+                heroText: '对话流程设计器 · 实时调试 · 多轮对话测试',
+                content: `<div style="display: grid; grid-template-columns: 280px 1fr 320px; gap: 24px;">
+                    <!-- 左侧：场景工作流 -->
+                    <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee; height: fit-content;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <h4 style="font-weight: bold; font-size: 14px;">📋 场景工作流</h4>
+                            <span style="cursor: pointer; font-size: 18px; color: #6b7cff;">+</span>
+                        </div>
+                        <div style="margin-bottom: 8px; padding: 12px; border: 2px solid #f0f0f0; border-radius: 6px; cursor: pointer; transition: all 0.2s;">
+                            <div style="color: #666; font-size: 12px; font-weight: 500;">📋 订单查询流程</div>
+                            <div style="font-size: 10px; color: #999; margin-top: 4px;">6个步骤 · 已激活</div>
+                        </div>
+                        <div style="margin-bottom: 8px; padding: 12px; border: 2px solid #6b7cff; border-radius: 6px; cursor: pointer; background: rgba(107, 124, 255, 0.05);">
+                            <div style="color: #6b7cff; font-size: 12px; font-weight: 500;">💬 退款申请场景</div>
+                            <div style="font-size: 10px; color: #6b7cff; margin-top: 4px;">9个步骤 · 测试中</div>
+                        </div>
+                        <div style="margin-bottom: 8px; padding: 12px; border: 2px solid #f0f0f0; border-radius: 6px; cursor: pointer;">
+                            <div style="color: #666; font-size: 12px; font-weight: 500;">👤 VIP咨询直达</div>
+                            <div style="font-size: 10px; color: #999; margin-top: 4px;">4个步骤 · 已上线</div>
+                        </div>
+                        <div style="margin-bottom: 8px; padding: 12px; border: 2px solid #f0f0f0; border-radius: 6px; cursor: pointer;">
+                            <div style="color: #666; font-size: 12px; font-weight: 500;">🤖 智能客服工作流</div>
+                            <div style="font-size: 10px; color: #999; margin-top: 4px;">12个步骤 · 草稿</div>
+                        </div>
+                        <div style="margin-bottom: 16px; padding: 12px; border: 2px solid #f0f0f0; border-radius: 6px; cursor: pointer;">
+                            <div style="color: #666; font-size: 12px; font-weight: 500;">📞 售后投诉处理</div>
+                            <div style="font-size: 10px; color: #999; margin-top: 4px;">8个步骤 · 已激活</div>
+                        </div>
+                        <div style="padding-top: 12px; border-top: 1px solid #f0f0f0;">
+                            <div style="font-size: 12px; color: #999; margin-bottom: 8px; font-weight: 500;">活跃指标</div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                <span style="font-size: 11px; color: #666;">今日对话</span>
+                                <span style="font-weight: bold; color: #6b7cff;">842</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="font-size: 11px; color: #666;">成功率</span>
+                                <span style="font-weight: bold; color: #52c41a;">94.2%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 中央：流程设计器 -->
+                    <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee; display: flex; flex-direction: column;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <div>
+                                <h4 style="font-weight: bold; margin-bottom: 4px;">退款申请场景编辑器</h4>
+                                <p style="font-size: 12px; color: #999;">使用可视化编辑器设计对话流程</p>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button style="padding: 6px 16px; background: #f0f0f0; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">↻ 测试运行</button>
+                                <button style="padding: 6px 16px; background: #f0f0f0; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">⚙ 配置</button>
+                                <button style="padding: 6px 16px; background: #6b7cff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">💾 保存</button>
+                            </div>
+                        </div>
+
+                        <!-- 流程节点可视化 -->
+                        <div style="flex: 1; border: 2px dashed #e8e8e8; border-radius: 8px; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; background: #fafafa;">
+                            <!-- 开始节点 -->
+                            <div style="text-align: center;">
+                                <div style="width: 80px; height: 50px; background: linear-gradient(135deg, #6b7cff 0%, #7c3aed 100%); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; margin: 0 auto; font-size: 12px;">START</div>
+                                <div style="font-size: 10px; color: #999; margin-top: 8px;">用户开始咨询</div>
+                            </div>
+
+                            <!-- 连接线 -->
+                            <div style="width: 2px; height: 32px; background: linear-gradient(to bottom, #d9d9d9, #d9d9d9);"></div>
+
+                            <!-- 意图识别节点 -->
+                            <div style="text-align: center;">
+                                <div style="width: 100px; height: 50px; background: linear-gradient(135deg, #52c41a 0%, #52ad1a 100%); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; margin: 0 auto; font-size: 12px;">NLP分析</div>
+                                <div style="font-size: 10px; color: #999; margin-top: 8px;">识别用户意图</div>
+                            </div>
+
+                            <!-- 连接线 -->
+                            <div style="width: 2px; height: 32px; background: linear-gradient(to bottom, #d9d9d9, #d9d9d9);"></div>
+
+                            <!-- 决策节点 -->
+                            <div style="text-align: center;">
+                                <div style="width: 120px; height: 50px; background: linear-gradient(135deg, #faad14 0%, #fa8c16 100%); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; margin: 0 auto; font-size: 12px;">意图判断</div>
+                                <div style="font-size: 10px; color: #999; margin-top: 8px;">是否为退款申请？</div>
+                            </div>
+
+                            <!-- 连接线 -->
+                            <div style="width: 2px; height: 32px; background: linear-gradient(to bottom, #d9d9d9, #d9d9d9);"></div>
+
+                            <!-- 处理节点 -->
+                            <div style="text-align: center;">
+                                <div style="width: 100px; height: 50px; background: linear-gradient(135deg, #1890ff 0%, #0050b3 100%); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; margin: 0 auto; font-size: 12px;">处理流程</div>
+                                <div style="font-size: 10px; color: #999; margin-top: 8px;">执行业务逻辑</div>
+                            </div>
+
+                            <!-- 连接线 -->
+                            <div style="width: 2px; height: 32px; background: linear-gradient(to bottom, #d9d9d9, #d9d9d9);"></div>
+
+                            <!-- 结束节点 -->
+                            <div style="text-align: center;">
+                                <div style="width: 80px; height: 50px; background: linear-gradient(135deg, #999 0%, #666 100%); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; margin: 0 auto; font-size: 12px;">END</div>
+                                <div style="font-size: 10px; color: #999; margin-top: 8px;">返回结果给用户</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右侧：NLP配置和调试 -->
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <!-- NLP配置面板 -->
+                        <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
+                            <h4 style="font-weight: bold; margin-bottom: 16px; font-size: 13px;">🔧 NLP配置</h4>
+                            
+                            <div style="margin-bottom: 16px;">
+                                <div style="font-size: 11px; color: #999; margin-bottom: 6px; font-weight: 500;">基础模型</div>
+                                <div style="padding: 8px; background: #f5f5f5; border-radius: 4px; font-size: 12px; font-weight: 500; color: #333;">BERT-v3-Chinese</div>
+                            </div>
+
+                            <div style="margin-bottom: 16px;">
+                                <div style="font-size: 11px; color: #999; margin-bottom: 8px; font-weight: 500;">意图识别精度: 88%</div>
+                                <div style="width: 100%; height: 6px; background: #f0f0f0; border-radius: 3px; overflow: hidden;">
+                                    <div style="width: 88%; height: 100%; background: linear-gradient(to right, #6b7cff, #7c3aed);"></div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 16px;">
+                                <div style="font-size: 11px; color: #999; margin-bottom: 8px; font-weight: 500;">实体识别精度: 91%</div>
+                                <div style="width: 100%; height: 6px; background: #f0f0f0; border-radius: 3px; overflow: hidden;">
+                                    <div style="width: 91%; height: 100%; background: linear-gradient(to right, #52c41a, #52ad1a);"></div>
+                                </div>
+                            </div>
+
+                            <div style="padding: 8px; background: #f0f7ff; border-left: 3px solid #1890ff; border-radius: 4px; font-size: 10px; color: #0050b3;">
+                                <span style="font-weight: 500;">💡</span> 准确度已达到生产标准
+                            </div>
+                        </div>
+
+                        <!-- 测试调试面板 -->
+                        <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
+                            <h4 style="font-weight: bold; margin-bottom: 16px; font-size: 13px;">🧪 测试调试</h4>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <input type="text" placeholder="输入测试文本..." value="我的订单已发货，想申请退款" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px; margin-bottom: 8px;">
+                                <button style="width: 100%; padding: 6px; background: #6b7cff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500;">运行测试</button>
+                            </div>
+
+                            <div style="background: #f5f5f5; padding: 12px; border-radius: 4px; font-size: 11px;">
+                                <div style="margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #ddd;">
+                                    <span style="color: #999;">识别意图:</span>
+                                    <span style="color: #6b7cff; font-weight: bold;">退款申请</span>
+                                </div>
+                                <div style="margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #ddd;">
+                                    <span style="color: #999;">置信度:</span>
+                                    <span style="color: #52c41a; font-weight: bold;">96.2%</span>
+                                </div>
+                                <div>
+                                    <span style="color: #999;">实体提取:</span>
+                                    <span style="color: #333;">发货 → 退款</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 最近对话 -->
+                        <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
+                            <h4 style="font-weight: bold; margin-bottom: 12px; font-size: 13px;">💬 最近对话</h4>
+                            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 11px;">
+                                <div style="padding: 8px; background: #f0f7ff; border-radius: 4px; border-left: 2px solid #1890ff;">
+                                    <div style="color: #666; margin-bottom: 2px;">用户: 我要退货</div>
+                                    <div style="color: #999; font-size: 10px;">刚才</div>
+                                </div>
+                                <div style="padding: 8px; background: #f5f5f5; border-radius: 4px; border-left: 2px solid #999;">
+                                    <div style="color: #666; margin-bottom: 2px;">回复: 为您查询订单...</div>
+                                    <div style="color: #999; font-size: 10px;">刚才</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+            },
+            knowledge: {
+                heroTitle: '知识库',
+                heroText: '智能知识管理 · 分类体系完善 · 覆盖率 92.4%',
+                content: `<div style="display: grid; grid-template-columns: 300px 1fr; gap: 24px;">
+                    <!-- 左侧：分类和筛选 -->
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <!-- 搜索框 -->
+                        <div style="background: white; padding: 16px; border-radius: 8px; border: 1px solid #eee;">
+                            <input type="text" placeholder="搜索知识项..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px;">
+                        </div>
+
+                        <!-- 知识分类 -->
+                        <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <h4 style="font-weight: bold; font-size: 13px;">知识地图分类</h4>
+                                <span style="font-size: 12px; color: #6b7cff; cursor: pointer;">管理</span>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f0f0; cursor: pointer;">
+                                <div>
+                                    <div style="font-size: 12px; color: #333; font-weight: 500;">📦 售后政策</div>
+                                    <div style="font-size: 10px; color: #999; margin-top: 2px;">7天无理由、退货、维修...</div>
+                                </div>
+                                <div style="font-weight: bold; color: #6b7cff; font-size: 13px;">42</div>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f0f0; cursor: pointer;">
+                                <div>
+                                    <div style="font-size: 12px; color: #333; font-weight: 500;">🚚 物流配送</div>
+                                    <div style="font-size: 10px; color: #999; margin-top: 2px;">发货、物流查询、延迟...</div>
+                                </div>
+                                <div style="font-weight: bold; color: #6b7cff; font-size: 13px;">18</div>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f0f0; cursor: pointer;">
+                                <div>
+                                    <div style="font-size: 12px; color: #333; font-weight: 500;">👥 会员及活动</div>
+                                    <div style="font-size: 10px; color: #999; margin-top: 2px;">积分、等级、优惠、福利...</div>
+                                </div>
+                                <div style="font-weight: bold; color: #6b7cff; font-size: 13px;">65</div>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f0f0; cursor: pointer;">
+                                <div>
+                                    <div style="font-size: 12px; color: #333; font-weight: 500;">❓ 常见问题</div>
+                                    <div style="font-size: 10px; color: #999; margin-top: 2px;">产品信息、使用教程...</div>
+                                </div>
+                                <div style="font-weight: bold; color: #6b7cff; font-size: 13px;">120</div>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; cursor: pointer;">
+                                <div>
+                                    <div style="font-size: 12px; color: #333; font-weight: 500;">🛒 商品信息</div>
+                                    <div style="font-size: 10px; color: #999; margin-top: 2px;">规格、参数、购买须知...</div>
+                                </div>
+                                <div style="font-weight: bold; color: #6b7cff; font-size: 13px;">89</div>
+                            </div>
+                        </div>
+
+                        <!-- 知识库统计 -->
+                        <div style="background: linear-gradient(135deg, rgba(107,124,255,0.1) 0%, rgba(123,58,237,0.1) 100%); padding: 16px; border-radius: 8px; border: 1px solid rgba(107, 124, 255, 0.2);">
+                            <h4 style="font-weight: bold; font-size: 12px; margin-bottom: 12px; color: #333;">📊 知识库统计</h4>
+                            <div style="display: grid; gap: 8px; font-size: 12px;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="color: #666;">总条目数</span>
+                                    <span style="font-weight: bold; color: #6b7cff;">334</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="color: #666;">已上线</span>
+                                    <span style="font-weight: bold; color: #52c41a;">298</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="color: #666;">待审核</span>
+                                    <span style="font-weight: bold; color: #faad14;">28</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="color: #666;">草稿</span>
+                                    <span style="font-weight: bold; color: #999;">8</span>
+                                </div>
+                                <div style="border-top: 1px solid rgba(107, 124, 255, 0.2); padding-top: 8px; margin-top: 8px; display: flex; justify-content: space-between;">
+                                    <span style="color: #666;">覆盖率</span>
+                                    <span style="font-weight: bold; color: #52c41a;">92.4%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右侧：条目管理 -->
+                    <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <div>
+                                <h4 style="font-weight: bold; margin-bottom: 2px;">条目管理列表</h4>
+                                <p style="font-size: 11px; color: #999;">共 334 条目，按更新时间排序</p>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button style="padding: 6px 12px; background: #f0f0f0; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">批量操作</button>
+                                <button style="padding: 6px 16px; background: #6b7cff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">+ 新增条目</button>
+                            </div>
+                        </div>
+
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid #f0f0f0;">
+                                    <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 11px; color: #999; width: 200px;">知识标题</th>
+                                    <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 11px; color: #999; width: 120px;">关键词</th>
+                                    <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 11px; color: #999; width: 100px;">更新时间</th>
+                                    <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 11px; color: #999; width: 80px;">状态</th>
+                                    <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 11px; color: #999; width: 100px;">引用数</th>
+                                    <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 11px; color: #999;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #f0f0f0;">
+                                    <td style="padding: 14px 0; font-size: 12px;">7天无理由退货说明</td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #999;">退货 网购</td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #999;">2025-03-20</td>
+                                    <td style="padding: 14px 0;"><span style="background: #d4edda; color: #155724; padding: 4px 8px; border-radius: 3px; font-size: 11px;">✓ 已上线</span></td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #6b7cff; font-weight: bold;">1,234</td>
+                                    <td style="padding: 14px 0;">
+                                        <a style="color: #6b7cff; cursor: pointer; font-size: 12px; margin-right: 12px;">编辑</a>
+                                        <a style="color: #999; cursor: pointer; font-size: 12px;">更多</a>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #f0f0f0;">
+                                    <td style="padding: 14px 0; font-size: 12px;">海外配送无法送达说明</td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #999;">无法 物流</td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #999;">2025-03-31</td>
+                                    <td style="padding: 14px 0;"><span style="background: #fff3cd; color: #856404; padding: 4px 8px; border-radius: 3px; font-size: 11px;">⚠ 待评审</span></td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #6b7cff; font-weight: bold;">856</td>
+                                    <td style="padding: 14px 0;">
+                                        <a style="color: #6b7cff; cursor: pointer; font-size: 12px; margin-right: 12px;">编辑</a>
+                                        <a style="color: #999; cursor: pointer; font-size: 12px;">更多</a>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #f0f0f0;">
+                                    <td style="padding: 14px 0; font-size: 12px;">会员积分兑换购物</td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #999;">积分 兑换</td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #999;">2025-03-25</td>
+                                    <td style="padding: 14px 0;"><span style="background: #d4edda; color: #155724; padding: 4px 8px; border-radius: 3px; font-size: 11px;">✓ 已上线</span></td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #6b7cff; font-weight: bold;">567</td>
+                                    <td style="padding: 14px 0;">
+                                        <a style="color: #6b7cff; cursor: pointer; font-size: 12px; margin-right: 12px;">编辑</a>
+                                        <a style="color: #999; cursor: pointer; font-size: 12px;">更多</a>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #f0f0f0;">
+                                    <td style="padding: 14px 0; font-size: 12px;">VIP会员专享权益</td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #999;">VIP 会员</td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #999;">2025-03-22</td>
+                                    <td style="padding: 14px 0;"><span style="background: #d4edda; color: #155724; padding: 4px 8px; border-radius: 3px; font-size: 11px;">✓ 已上线</span></td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #6b7cff; font-weight: bold;">892</td>
+                                    <td style="padding: 14px 0;">
+                                        <a style="color: #6b7cff; cursor: pointer; font-size: 12px; margin-right: 12px;">编辑</a>
+                                        <a style="color: #999; cursor: pointer; font-size: 12px;">更多</a>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #f0f0f0;">
+                                    <td style="padding: 14px 0; font-size: 12px;">促销活动规则说明</td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #999;">活动 规则</td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #999;">2025-03-18</td>
+                                    <td style="padding: 14px 0;"><span style="background: #f8d7da; color: #721c24; padding: 4px 8px; border-radius: 3px; font-size: 11px;">✗ 已过期</span></td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #6b7cff; font-weight: bold;">342</td>
+                                    <td style="padding: 14px 0;">
+                                        <a style="color: #6b7cff; cursor: pointer; font-size: 12px; margin-right: 12px;">编辑</a>
+                                        <a style="color: #999; cursor: pointer; font-size: 12px;">更多</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 0; font-size: 12px;">订单配送常见问题</td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #999;">订单 配送</td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #999;">2025-03-16</td>
+                                    <td style="padding: 14px 0;"><span style="background: #d4edda; color: #155724; padding: 4px 8px; border-radius: 3px; font-size: 11px;">✓ 已上线</span></td>
+                                    <td style="padding: 14px 0; font-size: 12px; color: #6b7cff; font-weight: bold;">1,102</td>
+                                    <td style="padding: 14px 0;">
+                                        <a style="color: #6b7cff; cursor: pointer; font-size: 12px; margin-right: 12px;">编辑</a>
+                                        <a style="color: #999; cursor: pointer; font-size: 12px;">更多</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 12px; color: #999;">显示 1-6 共 334 条目</span>
+                            <div style="display: flex; gap: 4px;">
+                                <button style="padding: 4px 8px; border: 1px solid #ddd; border-radius: 3px; cursor: pointer; font-size: 12px;">上一页</button>
+                                <button style="padding: 4px 8px; background: #6b7cff; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 12px;">1</button>
+                                <button style="padding: 4px 8px; border: 1px solid #ddd; border-radius: 3px; cursor: pointer; font-size: 12px;">2</button>
+                                <button style="padding: 4px 8px; border: 1px solid #ddd; border-radius: 3px; cursor: pointer; font-size: 12px;">3</button>
+                                <button style="padding: 4px 8px; border: 1px solid #ddd; border-radius: 3px; cursor: pointer; font-size: 12px;">下一页</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+            },
+            quality: {
+                heroTitle: '质量中心',
+                heroText: '多维度质量管理 · 实时缺陷追踪 · 持续改进驱动',
+                content: `<div style="display: grid; grid-template-columns: 1fr 320px; gap: 24px;">
+                    <div>
+                        <!-- 质量指标汇总 -->
+                        <div class="stats" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 24px;">
+                            <div class="stat-card" style="background: linear-gradient(135deg, #52c41a 0%, #52ad1a 100%); color: white; border: none; position: relative;">
+                                <div style="position: absolute; top: 12px; right: 12px; font-size: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 3px;">↑ 5%</div>
+                                <div class="stat-label" style="color: rgba(255,255,255,0.8);">代码覆盖率</div>
+                                <div class="stat-number" style="color: white; font-size: 42px;">87.3%</div>
+                                <div class="stat-change" style="color: rgba(255,255,255,0.8);">目标: 95%</div>
+                            </div>
+                            <div class="stat-card" style="background: linear-gradient(135deg, #1890ff 0%, #0050b3 100%); color: white; border: none;">
+                                <div style="position: absolute; top: 12px; right: 12px; font-size: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 3px;">↓ 12%</div>
+                                <div class="stat-label" style="color: rgba(255,255,255,0.8);">缺陷密度</div>
+                                <div class="stat-number" style="color: white;">8.2/kloc</div>
+                                <div class="stat-change" style="color: rgba(255,255,255,0.8);">较上月大幅下降</div>
+                            </div>
+                            <div class="stat-card" style="background: linear-gradient(135deg, #ff4d4f 0%, #f5222d 100%); color: white; border: none;">
+                                <div style="position: absolute; top: 12px; right: 12px; font-size: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 3px;">🔴 严重</div>
+                                <div class="stat-label" style="color: rgba(255,255,255,0.8);">待处理缺陷</div>
+                                <div class="stat-number" style="color: white;">23</div>
+                                <div class="stat-change" style="color: rgba(255,255,255,0.8);">需立即处理</div>
+                            </div>
+                            <div class="stat-card" style="background: linear-gradient(135deg, #faad14 0%, #fa8c16 100%); color: white; border: none;">
+                                <div style="position: absolute; top: 12px; right: 12px; font-size: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 3px;">⚡ 快</div>
+                                <div class="stat-label" style="color: rgba(255,255,255,0.8);">平均修复时间</div>
+                                <div class="stat-number" style="color: white;">2.4d</div>
+                                <div class="stat-change" style="color: rgba(255,255,255,0.8);">行业平均: 3.2d</div>
+                            </div>
+                        </div>
+
+                        <!-- 质量指标趋势 + 缺陷优先级分布 -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                            <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                                <h4 style="font-weight: bold; margin-bottom: 20px;">质量评分趋势</h4>
+                                <div style="height: 220px; display: flex; align-items: flex-end; gap: 12px; margin-bottom: 16px; position: relative;">
+                                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: grid; grid-template-columns: repeat(8, 1fr); opacity: 0.1;">
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                    </div>
+                                    <div style="flex: 1; height: 40%; background: linear-gradient(to top, rgba(107, 124, 255, 0.6), rgba(107, 124, 255, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 50%; background: linear-gradient(to top, rgba(107, 124, 255, 0.6), rgba(107, 124, 255, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 55%; background: linear-gradient(to top, rgba(107, 124, 255, 0.6), rgba(107, 124, 255, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 62%; background: linear-gradient(to top, rgba(107, 124, 255, 0.6), rgba(107, 124, 255, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 75%; background: linear-gradient(to top, rgba(107, 124, 255, 0.6), rgba(107, 124, 255, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 80%; background: linear-gradient(to top, rgba(52, 211, 153, 0.6), rgba(52, 211, 153, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 82%; background: linear-gradient(to top, rgba(52, 211, 153, 0.6), rgba(52, 211, 153, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 85%; background: linear-gradient(to top, rgba(52, 211, 153, 0.6), rgba(52, 211, 153, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                </div>
+                                <div style="display: flex; justify-content: space-around; font-size: 11px; color: #999; padding-top: 12px; border-top: 1px solid #f0f0f0;">
+                                    <span>上月初</span><span></span><span></span><span>上月中</span><span></span><span>本月初</span><span></span><span>今天</span>
+                                </div>
+                            </div>
+
+                            <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                                <h4 style="font-weight: bold; margin-bottom: 20px;">缺陷优先级分布</h4>
+                                <div style="height: 220px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                                    <div style="width: 140px; height: 140px; border-radius: 50%; background: conic-gradient(#ff4d4f 0deg 90deg, #faad14 90deg 180deg, #1890ff 180deg 270deg, #52c41a 270deg 360deg); position: relative; box-shadow: inset 0 0 0 25px white;">
+                                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                            <div style="font-size: 20px; font-weight: bold; color: #333;">128</div>
+                                            <div style="font-size: 10px; color: #999;">总缺陷</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: grid; gap: 8px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 10px; height: 10px; border-radius: 2px; background: #ff4d4f;"></div>
+                                            <span style="font-size: 12px;">严重 (P0)</span>
+                                        </div>
+                                        <span style="font-weight: bold; color: #333;">23</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 10px; height: 10px; border-radius: 2px; background: #faad14;"></div>
+                                            <span style="font-size: 12px;">高 (P1)</span>
+                                        </div>
+                                        <span style="font-weight: bold; color: #333;">45</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 10px; height: 10px; border-radius: 2px; background: #1890ff;"></div>
+                                            <span style="font-size: 12px;">中 (P2)</span>
+                                        </div>
+                                        <span style="font-weight: bold; color: #333;">42</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 10px; height: 10px; border-radius: 2px; background: #52c41a;"></div>
+                                            <span style="font-size: 12px;">低 (P3)</span>
+                                        </div>
+                                        <span style="font-weight: bold; color: #333;">18</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 缺陷详情列表 -->
+                        <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <h4 style="font-weight: bold;">缺陷追踪列表</h4>
+                                <div style="display: flex; gap: 8px;">
+                                    <select style="padding: 6px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px;">
+                                        <option>全部状态</option>
+                                        <option>待处理</option>
+                                        <option>处理中</option>
+                                        <option>已验证</option>
+                                    </select>
+                                    <button style="padding: 6px 16px; background: #6b7cff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">+ 新增缺陷</button>
+                                </div>
+                            </div>
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="border-bottom: 2px solid #f0f0f0;">
+                                        <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 11px; color: #999;">缺陷ID</th>
+                                        <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 11px; color: #999;">描述</th>
+                                        <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 11px; color: #999;">优先级</th>
+                                        <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 11px; color: #999;">当前状态</th>
+                                        <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 11px; color: #999;">分配给</th>
+                                        <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 11px; color: #999;">创建时间</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                                        <td style="padding: 12px 0; font-size: 12px; font-weight: bold;">#BUG-2341</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">订单查询超时问题</td>
+                                        <td style="padding: 12px 0;"><span style="background: #ffebee; color: #ff4d4f; padding: 3px 8px; border-radius: 3px; font-size: 10px;">P0</span></td>
+                                        <td style="padding: 12px 0;"><span style="color: #ff4d4f; font-size: 12px; font-weight: bold;">待处理</span></td>
+                                        <td style="padding: 12px 0; font-size: 12px;">张晓明</td>
+                                        <td style="padding: 12px 0; font-size: 12px; color: #999;">2025-03-29</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                                        <td style="padding: 12px 0; font-size: 12px; font-weight: bold;">#BUG-2340</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">退款申请验证错误</td>
+                                        <td style="padding: 12px 0;"><span style="background: #fff2e8; color: #faad14; padding: 3px 8px; border-radius: 3px; font-size: 10px;">P1</span></td>
+                                        <td style="padding: 12px 0;"><span style="color: #faad14; font-size: 12px; font-weight: bold;">处理中</span></td>
+                                        <td style="padding: 12px 0; font-size: 12px;">王思琪</td>
+                                        <td style="padding: 12px 0; font-size: 12px; color: #999;">2025-03-28</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                                        <td style="padding: 12px 0; font-size: 12px; font-weight: bold;">#BUG-2339</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">用户登录不一致</td>
+                                        <td style="padding: 12px 0;"><span style="background: #e6f7ff; color: #1890ff; padding: 3px 8px; border-radius: 3px; font-size: 10px;">P2</span></td>
+                                        <td style="padding: 12px 0;"><span style="color: #52c41a; font-size: 12px; font-weight: bold;">已验证</span></td>
+                                        <td style="padding: 12px 0; font-size: 12px;">李飞扬</td>
+                                        <td style="padding: 12px 0; font-size: 12px; color: #999;">2025-03-27</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                                        <td style="padding: 12px 0; font-size: 12px; font-weight: bold;">#BUG-2338</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">支付流程崩溃</td>
+                                        <td style="padding: 12px 0;"><span style="background: #fff2e8; color: #faad14; padding: 3px 8px; border-radius: 3px; font-size: 10px;">P1</span></td>
+                                        <td style="padding: 12px 0;"><span style="color: #999; font-size: 12px;">已关闭</span></td>
+                                        <td style="padding: 12px 0; font-size: 12px;">李晓红</td>
+                                        <td style="padding: 12px 0; font-size: 12px; color: #999;">2025-03-26</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 右侧质量概览 -->
+                    <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee; height: fit-content; position: sticky; top: 100px;">
+                        <h4 style="font-weight: bold; margin-bottom: 16px;">📈 质量概览</h4>
+                        
+                        <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0;">
+                            <div style="font-size: 11px; color: #999; margin-bottom: 6px;">本周新增缺陷</div>
+                            <div style="font-size: 26px; font-weight: bold; color: #333; margin-bottom: 4px;">23</div>
+                            <div style="font-size: 11px; color: #ff4d4f;">↑ 增加 8个</div>
+                        </div>
+
+                        <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0;">
+                            <div style="font-size: 11px; color: #999; margin-bottom: 6px;">已关闭缺陷</div>
+                            <div style="font-size: 26px; font-weight: bold; color: #333; margin-bottom: 4px;">87</div>
+                            <div style="font-size: 11px; color: #52c41a;">↓ 解决率 67.9%</div>
+                        </div>
+
+                        <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0;">
+                            <div style="font-size: 11px; color: #999; margin-bottom: 6px;">测试覆盖率</div>
+                            <div style="font-size: 26px; font-weight: bold; color: #333; margin-bottom: 4px;">87.3%</div>
+                            <div style="font-size: 11px; color: #faad14;">📍 需提升至95%</div>
+                        </div>
+
+                        <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0;">
+                            <div style="font-size: 11px; color: #999; margin-bottom: 8px;">P0级缺陷</div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <div>
+                                    <div style="font-size: 20px; font-weight: bold; color: #ff4d4f;">23</div>
+                                    <div style="font-size: 10px; color: #999;">待处理</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-size: 20px; font-weight: bold; color: #999;">5</div>
+                                    <div style="font-size: 10px; color: #999;">处理中</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="padding: 12px; background: linear-gradient(135deg, rgba(255,77,79,0.1) 0%, rgba(245,34,45,0.1) 100%); border-radius: 6px; border-left: 3px solid #ff4d4f;">
+                            <div style="font-size: 11px; color: #666; margin-bottom: 8px;">⚠️ 重要提示</div>
+                            <div style="font-size: 11px; color: #333; line-height: 1.5;">有 23 个P0级缺陷需要立即处理，建议优先分配资源。</div>
+                        </div>
+                    </div>
+                </div>`
+            },
+            report: {
+                heroTitle: '报表分析',
+                heroText: '多维度测试数据分析 · 实时质量监控 · 趋势预测',
+                content: `<div style="display: grid; grid-template-columns: 1fr 320px; gap: 24px;">
+                    <div>
+                        <!-- 筛选工具栏 -->
+                        <div style="background: white; padding: 16px 20px; border-radius: 8px; border: 1px solid #eee; margin-bottom: 24px; display: flex; gap: 16px; align-items: center;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 12px; color: #666; font-weight: 500;">日期范围</span>
+                                <select style="padding: 6px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px; cursor: pointer;">
+                                    <option>今天</option>
+                                    <option selected>最近7天</option>
+                                    <option>最近30天</option>
+                                    <option>自定义日期</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 12px; color: #666; font-weight: 500;">场景</span>
+                                <select style="padding: 6px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px; cursor: pointer;">
+                                    <option>全部场景</option>
+                                    <option>订单管理</option>
+                                    <option>退款申请</option>
+                                    <option>售后咨询</option>
+                                </select>
+                            </div>
+                            <div style="margin-left: auto; display: flex; gap: 8px;">
+                                <button style="padding: 6px 16px; background: #f0f0f0; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">清空筛选</button>
+                                <button style="padding: 6px 16px; background: #6b7cff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">导出报表</button>
+                            </div>
+                        </div>
+
+                        <!-- 核心KPI卡片 -->
+                        <div class="stats" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 24px;">
+                            <div class="stat-card" style="background: linear-gradient(135deg, #5b7cff 0%, #7c3aed 100%); color: white; border: none; position: relative;">
+                                <div style="position: absolute; top: 12px; right: 12px; font-size: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 3px;">↑ 15%</div>
+                                <div class="stat-label" style="color: rgba(255,255,255,0.8);">总测试用例</div>
+                                <div class="stat-number" style="color: white;">8,234</div>
+                                <div class="stat-change" style="color: rgba(255,255,255,0.8);">环比增加 +342</div>
+                            </div>
+                            <div class="stat-card" style="background: linear-gradient(135deg, #52c41a 0%, #52ad1a 100%); color: white; border: none;">
+                                <div style="position: absolute; top: 12px; right: 12px; font-size: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 3px;">↑ 2.3%</div>
+                                <div class="stat-label" style="color: rgba(255,255,255,0.8);">通过率</div>
+                                <div class="stat-number" style="color: white; font-size: 42px;">96.8%</div>
+                                <div class="stat-change" style="color: rgba(255,255,255,0.8);">质量持续优化中</div>
+                            </div>
+                            <div class="stat-card" style="background: linear-gradient(135deg, #ff4d4f 0%, #f5222d 100%); color: white; border: none;">
+                                <div style="position: absolute; top: 12px; right: 12px; font-size: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 3px;">↓ 8%</div>
+                                <div class="stat-label" style="color: rgba(255,255,255,0.8);">失败用例</div>
+                                <div class="stat-number" style="color: white;">261</div>
+                                <div class="stat-change" style="color: rgba(255,255,255,0.8);">较昨日下降 23个</div>
+                            </div>
+                            <div class="stat-card" style="background: linear-gradient(135deg, #faad14 0%, #fa8c16 100%); color: white; border: none;">
+                                <div style="position: absolute; top: 12px; right: 12px; font-size: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 3px;">⚠</div>
+                                <div class="stat-label" style="color: rgba(255,255,255,0.8);">覆盖率</div>
+                                <div class="stat-number" style="color: white;">87.4%</div>
+                                <div class="stat-change" style="color: rgba(255,255,255,0.8);">目标: 95% 还差 7.6%</div>
+                            </div>
+                        </div>
+
+                        <!-- 数据可视化区域 -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                            <!-- 测试执行趋势图 -->
+                            <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                    <h4 style="font-weight: bold;">测试执行趋势</h4>
+                                    <span style="font-size: 12px; color: #999;">最近7天</span>
+                                </div>
+                                <div style="height: 240px; display: flex; align-items: flex-end; gap: 12px; margin-bottom: 16px; position: relative;">
+                                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; opacity: 0.1;">
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                        <div style="border-right: 1px solid #ccc;"></div>
+                                    </div>
+                                    <div style="flex: 1; height: 35%; background: linear-gradient(to top, rgba(107, 124, 255, 0.8), rgba(107, 124, 255, 0.4)); border-radius: 4px 4px 0 0; position: relative;">
+                                        <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 11px; color: #666;">1,234</div>
+                                    </div>
+                                    <div style="flex: 1; height: 52%; background: linear-gradient(to top, rgba(107, 124, 255, 0.8), rgba(107, 124, 255, 0.4)); border-radius: 4px 4px 0 0; position: relative;">
+                                        <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 11px; color: #666;">1,852</div>
+                                    </div>
+                                    <div style="flex: 1; height: 43%; background: linear-gradient(to top, rgba(107, 124, 255, 0.8), rgba(107, 124, 255, 0.4)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 68%; background: linear-gradient(to top, rgba(107, 124, 255, 0.8), rgba(107, 124, 255, 0.4)); border-radius: 4px 4px 0 0; position: relative;">
+                                        <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 11px; color: #666;">2,156</div>
+                                    </div>
+                                    <div style="flex: 1; height: 56%; background: linear-gradient(to top, rgba(107, 124, 255, 0.8), rgba(107, 124, 255, 0.4)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 72%; background: linear-gradient(to top, rgba(107, 124, 255, 0.8), rgba(107, 124, 255, 0.4)); border-radius: 4px 4px 0 0; position: relative;">
+                                        <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 11px; color: #666;">2,342</div>
+                                    </div>
+                                    <div style="flex: 1; height: 85%; background: linear-gradient(to top, rgba(52, 211, 153, 0.8), rgba(52, 211, 153, 0.4)); border-radius: 4px 4px 0 0; position: relative;">
+                                        <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 11px; color: #666; font-weight: bold;">2,789</div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; justify-content: space-around; font-size: 11px; color: #999; padding-top: 12px; border-top: 1px solid #f0f0f0;">
+                                    <span>周一</span><span>周二</span><span>周三</span><span>周四</span><span>周五</span><span>周六</span><span>周日</span>
+                                </div>
+                            </div>
+
+                            <!-- 场景分布饼图 -->
+                            <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                                <h4 style="font-weight: bold; margin-bottom: 20px;">测试场景分布</h4>
+                                <div style="height: 240px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                                    <div style="width: 160px; height: 160px; border-radius: 50%; background: conic-gradient(#6b7cff 0deg 108deg, #52c41a 108deg 180deg, #ff4d4f 180deg 252deg, #faad14 252deg 360deg); position: relative; box-shadow: inset 0 0 0 30px white;">
+                                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                            <div style="font-size: 24px; font-weight: bold; color: #333;">100%</div>
+                                            <div style="font-size: 11px; color: #999;">覆盖</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: grid; gap: 8px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 12px; height: 12px; border-radius: 2px; background: #6b7cff;"></div>
+                                            <span style="font-size: 12px;">订单管理</span>
+                                        </div>
+                                        <span style="font-weight: bold; color: #333;">30%</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 12px; height: 12px; border-radius: 2px; background: #52c41a;"></div>
+                                            <span style="font-size: 12px;">售后咨询</span>
+                                        </div>
+                                        <span style="font-weight: bold; color: #333;">25%</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 12px; height: 12px; border-radius: 2px; background: #ff4d4f;"></div>
+                                            <span style="font-size: 12px;">退款申请</span>
+                                        </div>
+                                        <span style="font-weight: bold; color: #333;">26%</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div style="width: 12px; height: 12px; border-radius: 2px; background: #faad14;"></div>
+                                            <span style="font-size: 12px;">VIP快速服务</span>
+                                        </div>
+                                        <span style="font-weight: bold; color: #333;">19%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 测试详情表格 -->
+                        <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee; margin-bottom: 24px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <h4 style="font-weight: bold;">最近测试执行详情</h4>
+                                <span style="font-size: 12px; color: #6b7cff; cursor: pointer;">查看全部 →</span>
+                            </div>
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="border-bottom: 2px solid #f0f0f0;">
+                                        <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 12px; color: #999;">执行ID</th>
+                                        <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 12px; color: #999;">场景名称</th>
+                                        <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 12px; color: #999;">用例数</th>
+                                        <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 12px; color: #999;">通过</th>
+                                        <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 12px; color: #999;">失败</th>
+                                        <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 12px; color: #999;">执行时间</th>
+                                        <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 12px; color: #999;">执行者</th>
+                                        <th style="text-align: left; padding: 12px 0; font-weight: bold; font-size: 12px; color: #999;">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                                        <td style="padding: 12px 0; font-weight: 500;">#RUN-8234</td>
+                                        <td style="padding: 12px 0;">订单查询流程</td>
+                                        <td style="padding: 12px 0;">234</td>
+                                        <td style="padding: 12px 0;"><span style="color: #52c41a; font-weight: bold;">228</span></td>
+                                        <td style="padding: 12px 0;"><span style="color: #ff4d4f; font-weight: bold;">6</span></td>
+                                        <td style="padding: 12px 0; font-size: 12px;">2025-01-30 14:32</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">张晓明</td>
+                                        <td style="padding: 12px 0; font-size: 12px; color: #6b7cff; cursor: pointer;">查看详情</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                                        <td style="padding: 12px 0; font-weight: 500;">#RUN-8233</td>
+                                        <td style="padding: 12px 0;">售后申请场景</td>
+                                        <td style="padding: 12px 0;">189</td>
+                                        <td style="padding: 12px 0;"><span style="color: #52c41a; font-weight: bold;">187</span></td>
+                                        <td style="padding: 12px 0;"><span style="color: #ff4d4f; font-weight: bold;">2</span></td>
+                                        <td style="padding: 12px 0; font-size: 12px;">2025-01-30 11:45</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">王思琪</td>
+                                        <td style="padding: 12px 0; font-size: 12px; color: #6b7cff; cursor: pointer;">查看详情</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                                        <td style="padding: 12px 0; font-weight: 500;">#RUN-8232</td>
+                                        <td style="padding: 12px 0;">退款申请工作流</td>
+                                        <td style="padding: 12px 0;">267</td>
+                                        <td style="padding: 12px 0;"><span style="color: #52c41a; font-weight: bold;">251</span></td>
+                                        <td style="padding: 12px 0;"><span style="color: #ff4d4f; font-weight: bold;">16</span></td>
+                                        <td style="padding: 12px 0; font-size: 12px;">2025-01-30 09:18</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">李飞扬</td>
+                                        <td style="padding: 12px 0; font-size: 12px; color: #6b7cff; cursor: pointer;">查看详情</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 12px 0; font-weight: 500;">#RUN-8231</td>
+                                        <td style="padding: 12px 0;">VIP快速服务</td>
+                                        <td style="padding: 12px 0;">156</td>
+                                        <td style="padding: 12px 0;"><span style="color: #52c41a; font-weight: bold;">156</span></td>
+                                        <td style="padding: 12px 0;"><span style="color: #999;">0</span></td>
+                                        <td style="padding: 12px 0; font-size: 12px;">2025-01-30 07:32</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">李晓红</td>
+                                        <td style="padding: 12px 0; font-size: 12px; color: #6b7cff; cursor: pointer;">查看详情</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- 错误分析 -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                            <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                                <h4 style="font-weight: bold; margin-bottom: 20px;">错误类型排行</h4>
+                                <div style="display: grid; gap: 12px;">
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                            <span style="font-size: 12px;">🔴 断言失败</span>
+                                            <span style="font-weight: bold; color: #333; font-size: 12px;">89</span>
+                                        </div>
+                                        <div style="width: 100%; height: 8px; background: #f0f0f0; border-radius: 4px; overflow: hidden;">
+                                            <div style="width: 45%; height: 100%; background: #ff4d4f;"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                            <span style="font-size: 12px;">🟡 超时错误</span>
+                                            <span style="font-weight: bold; color: #333; font-size: 12px;">67</span>
+                                        </div>
+                                        <div style="width: 100%; height: 8px; background: #f0f0f0; border-radius: 4px; overflow: hidden;">
+                                            <div style="width: 34%; height: 100%; background: #faad14;"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                            <span style="font-size: 12px;">🟠 异常崩溃</span>
+                                            <span style="font-weight: bold; color: #333; font-size: 12px;">42</span>
+                                        </div>
+                                        <div style="width: 100%; height: 8px; background: #f0f0f0; border-radius: 4px; overflow: hidden;">
+                                            <div style="width: 21%; height: 100%; background: #ff7a45;"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                            <span style="font-size: 12px;">🔵 数据校验</span>
+                                            <span style="font-weight: bold; color: #333; font-size: 12px;">38</span>
+                                        </div>
+                                        <div style="width: 100%; height: 8px; background: #f0f0f0; border-radius: 4px; overflow: hidden;">
+                                            <div style="width: 19%; height: 100%; background: #1890ff;"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                            <span style="font-size: 12px;">⚪ 其他错误</span>
+                                            <span style="font-weight: bold; color: #333; font-size: 12px;">25</span>
+                                        </div>
+                                        <div style="width: 100%; height: 8px; background: #f0f0f0; border-radius: 4px; overflow: hidden;">
+                                            <div style="width: 13%; height: 100%; background: #d9d9d9;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                                <h4 style="font-weight: bold; margin-bottom: 20px;">性能指标汇总</h4>
+                                <div style="display: grid; gap: 12px;">
+                                    <div style="padding: 12px; background: #f5f5f5; border-radius: 6px;">
+                                        <div style="font-size: 12px; color: #666; margin-bottom: 4px;">平均执行时间</div>
+                                        <div style="font-size: 20px; font-weight: bold; color: #333;">2.34s</div>
+                                        <div style="font-size: 10px; color: #999;">较上周提升 12%</div>
+                                    </div>
+                                    <div style="padding: 12px; background: #f5f5f5; border-radius: 6px;">
+                                        <div style="font-size: 12px; color: #666; margin-bottom: 4px;">内存占用峰值</div>
+                                        <div style="font-size: 20px; font-weight: bold; color: #333;">524 MB</div>
+                                        <div style="font-size: 10px; color: #999;">在健康范围内</div>
+                                    </div>
+                                    <div style="padding: 12px; background: #f5f5f5; border-radius: 6px;">
+                                        <div style="font-size: 12px; color: #666; margin-bottom: 4px;">并发能力</div>
+                                        <div style="font-size: 20px; font-weight: bold; color: #333;">450+ req/s</div>
+                                        <div style="font-size: 10px; color: #999;">满足生产要求</div>
+                                    </div>
+                                    <div style="padding: 12px; background: #f5f5f5; border-radius: 6px;">
+                                        <div style="font-size: 12px; color: #666; margin-bottom: 4px;">故障恢复时间</div>
+                                        <div style="font-size: 20px; font-weight: bold; color: #333;">< 2min</div>
+                                        <div style="font-size: 10px; color: #999;">高可用认证</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右侧快速统计面板 -->
+                    <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee; height: fit-content; position: sticky; top: 100px;">
+                        <h4 style="font-weight: bold; margin-bottom: 16px;">快速统计</h4>
+                        
+                        <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0;">
+                            <div style="font-size: 11px; color: #999; margin-bottom: 6px;">今日执行数</div>
+                            <div style="font-size: 26px; font-weight: bold; color: #333; margin-bottom: 4px;">2,789</div>
+                            <div style="font-size: 11px; color: #52c41a;">↑ 增加 328</div>
+                        </div>
+
+                        <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0;">
+                            <div style="font-size: 11px; color: #999; margin-bottom: 6px;">本周新增缺陷</div>
+                            <div style="font-size: 26px; font-weight: bold; color: #333; margin-bottom: 4px;">23</div>
+                            <div style="font-size: 11px; color: #ff4d4f;">↑ 增加 8个</div>
+                        </div>
+
+                        <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0;">
+                            <div style="font-size: 11px; color: #999; margin-bottom: 6px;">待处理问题</div>
+                            <div style="font-size: 26px; font-weight: bold; color: #333; margin-bottom: 4px;">5</div>
+                            <div style="font-size: 11px; color: #faad14;">优先级: 高</div>
+                        </div>
+
+                        <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0;">
+                            <div style="font-size: 11px; color: #999; margin-bottom: 6px;">最新运行</div>
+                            <div style="font-size: 12px; color: #666; line-height: 1.6;">
+                                <div>📌 订单流程</div>
+                                <div style="color: #999; font-size: 10px;">3分钟前</div>
+                                <div style="margin-top: 8px; color: #52c41a;">✓ 成功 (96.8%)</div>
+                            </div>
+                        </div>
+
+                        <div style="padding: 12px; background: linear-gradient(135deg, rgba(107,124,255,0.1) 0%, rgba(123,58,237,0.1) 100%); border-radius: 6px; border-left: 3px solid #6b7cff;">
+                            <div style="font-size: 11px; color: #666; margin-bottom: 8px;">⭐ 提示</div>
+                            <div style="font-size: 11px; color: #333; line-height: 1.5;">覆盖率还需提升 7.6%，建议重点测试未覆盖模块。</div>
+                        </div>
+                    </div>
+                </div>`
+            }
+        };
+
+        function switchPage(page) {
+            const data = pages[page];
+            if (!data) return;
+            
+            document.getElementById('heroTitle').textContent = data.heroTitle;
+            document.getElementById('heroText').textContent = data.heroText;
+            document.getElementById('content').innerHTML = data.content;
+            
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

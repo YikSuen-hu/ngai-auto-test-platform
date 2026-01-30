@@ -1,129 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="NGAI 智能客服自动化测试系统 - 现代化智能客服自动化测试管理系统" />
+    <meta name="theme-color" content="#4f46e5" />
     <title>NGAI 智能客服自动化测试系统</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { font-size: 16px; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f9fafb; color: #1f2937; }
-        .container { display: flex; height: 100vh; }
-        .sidebar { width: 256px; background: white; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; overflow-y: auto; }
-        .sidebar-header { padding: 24px; border-bottom: 1px solid #e5e7eb; }
-        .sidebar-header h1 { font-size: 24px; font-weight: bold; color: #4f46e5; }
-        .sidebar-header p { font-size: 12px; color: #6b7280; margin-top: 4px; }
-        .nav { flex: 1; overflow-y: auto; padding: 16px; }
-        .nav-btn { width: 100%; text-align: left; padding: 12px 16px; border-radius: 8px; border: none; background: transparent; cursor: pointer; color: #374151; font-size: 14px; font-weight: 500; margin-bottom: 4px; transition: all 0.2s; }
-        .nav-btn:hover { background: #f3f4f6; }
-        .nav-btn.active { background: rgba(79, 70, 229, 0.1); color: #4f46e5; border-left: 3px solid #4f46e5; padding-left: 13px; }
-        .sidebar-footer { padding: 16px; border-top: 1px solid #e5e7eb; font-size: 12px; color: #6b7280; }
-        .main { flex: 1; display: flex; flex-direction: column; }
-        .header { background: white; border-bottom: 1px solid #e5e7eb; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; }
-        .header h2 { font-size: 24px; font-weight: bold; }
-        .content { flex: 1; overflow-y: auto; padding: 32px; }
-        .card { background: white; border-radius: 8px; border: 1px solid #e5e7eb; padding: 24px; margin-bottom: 24px; }
-        .card h3 { font-size: 18px; font-weight: bold; margin-bottom: 16px; }
-        .grid { display: grid; gap: 16px; margin-bottom: 24px; }
-        .grid-4 { grid-template-columns: repeat(4, 1fr); }
-        .grid-2 { grid-template-columns: repeat(2, 1fr); }
-        .stat-box { background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px; text-align: center; }
-        .stat-number { font-size: 32px; font-weight: bold; margin-bottom: 8px; }
-        .stat-label { font-size: 14px; color: #6b7280; }
-        .hero { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white; border-radius: 8px; padding: 32px; margin-bottom: 24px; }
-        .hero h2 { font-size: 32px; font-weight: bold; margin-bottom: 8px; }
-        .hero p { opacity: 0.9; }
-        .btn { background: #4f46e5; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; transition: background 0.2s; }
-        .btn:hover { background: #4338ca; }
-        .status-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f3f4f6; }
-        .status-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
-        .status-green { background: #10b981; }
-        .status-yellow { background: #f59e0b; }
-        .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; }
-        .badge-green { background: #d1fae5; color: #065f46; }
-        .badge-red { background: #fee2e2; color: #7f1d1d; }
-        .num-big { font-size: 28px; font-weight: bold; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <h1>NGAI</h1>
-                <p>智能自动化测试系统</p>
-            </div>
-            <nav class="nav">
-                <button class="nav-btn active" onclick="switchView('home')">🏠 首页</button>
-                <button class="nav-btn" onclick="switchView('dialogue')">💬 对话测试</button>
-                <button class="nav-btn" onclick="switchView('knowledge')">📚 知识库</button>
-                <button class="nav-btn" onclick="switchView('quality')">✅ 质量管理</button>
-                <button class="nav-btn" onclick="switchView('factory')">⚙️ 测试工厂</button>
-                <button class="nav-btn" onclick="switchView('report')">📊 报告分析</button>
-                <button class="nav-btn" onclick="switchView('monitor')">📡 监控中心</button>
-                <button class="nav-btn" onclick="switchView('decision')">🤖 决策系统</button>
-                <button class="nav-btn" onclick="switchView('settings')">⚙️ 设置</button>
-            </nav>
-            <div class="sidebar-footer">
-                <p>v1.0.0</p>
-                <p style="margin-top: 8px;">© 2024 NGAI</p>
-            </div>
-        </div>
-        <div class="main">
-            <div class="header">
-                <h2 id="pageTitle">首页</h2>
-                <button class="btn" style="width: 40px; height: 40px; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center; background: rgba(79, 70, 229, 0.1); color: #4f46e5;">👤</button>
-            </div>
-            <div class="content" id="content"></div>
-        </div>
-    </div>
-    <script>
-        const views = {
-            home: {
-                title: '首页',
-                html: `<div class="hero"><h2>欢迎回来</h2><p>NGAI 智能客服自动化测试平台已上线</p></div><div class="grid grid-4"><div class="stat-box"><div class="stat-number" style="color: #4f46e5;">127</div><div class="stat-label">总测试用例</div></div><div class="stat-box"><div class="stat-number" style="color: #10b981;">92%</div><div class="stat-label">测试通过率</div></div><div class="stat-box"><div class="stat-number" style="color: #f59e0b;">8</div><div class="stat-label">待修复问题</div></div><div class="stat-box"><div class="stat-number" style="color: #3b82f6;">3</div><div class="stat-label">运行中的任务</div></div></div><div class="grid grid-2"><div class="card"><h3>最近执行的测试</h3><div style="display: grid; gap: 12px;"><div style="display: flex; justify-content: space-between; padding: 12px; background: #f9fafb; border-radius: 6px;"><span>测试1: 对话流程验证</span><span class="badge badge-green">✓ 通过</span></div><div style="display: flex; justify-content: space-between; padding: 12px; background: #f9fafb; border-radius: 6px;"><span>测试2: 知识库查询</span><span class="badge badge-green">✓ 通过</span></div><div style="display: flex; justify-content: space-between; padding: 12px; background: #f9fafb; border-radius: 6px;"><span>测试3: 异常处理</span><span class="badge badge-red">✗ 失败</span></div></div></div><div class="card"><h3>系统状态</h3><div><div class="status-item"><span>API 服务</span><span class="status-dot status-green"></span></div><div class="status-item"><span>数据库连接</span><span class="status-dot status-green"></span></div><div class="status-item"><span>缓存服务</span><span class="status-dot status-yellow"></span></div><div class="status-item"><span>消息队列</span><span class="status-dot status-green"></span></div></div></div></div>`
-            },
-            dialogue: {
-                title: '对话测试',
-                html: `<div class="grid grid-2"><div class="card"><h3>创建对话测试</h3><div style="display: grid; gap: 16px;"><div><label style="display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px;">测试名称</label><input type="text" placeholder="例：首次接触流程" style="width: 100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px;"></div><button class="btn" style="width: 100%; padding: 10px;">创建测试</button></div></div><div class="card"><h3>最近的对话测试</h3><div style="display: grid; gap: 8px;"><div style="padding: 12px; background: #f3f4f6; border-left: 4px solid #3b82f6; border-radius: 4px;"><p style="font-weight: 500;">测试001</p><p style="font-size: 12px; color: #6b7280;">创建于 2024-01-25</p></div></div></div></div>`
-            },
-            knowledge: {
-                title: '知识库',
-                html: `<div class="card"><h3>知识库管理</h3><div class="grid grid-2" style="margin-bottom: 24px;"><div style="text-align: center; padding: 16px; background: #eff6ff; border-radius: 8px;"><div class="num-big" style="color: #3b82f6;">256</div><p style="font-size: 14px; color: #6b7280;">知识条目</p></div><div style="text-align: center; padding: 16px; background: #f0fdf4; border-radius: 8px;"><div class="num-big" style="color: #10b981;">98%</div><p style="font-size: 14px; color: #6b7280;">覆盖率</p></div></div></div>`
-            },
-            quality: {
-                title: '质量管理',
-                html: `<div class="grid grid-2"><div class="card"><h3>质量指标</h3><div style="display: grid; gap: 20px;"><div><div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span style="font-size: 14px; font-weight: 500;">通过率</span><span style="font-size: 14px; font-weight: bold; color: #4f46e5;">92%</span></div><div style="width: 100%; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden;"><div style="width: 92%; height: 100%; background: #4f46e5;"></div></div></div></div></div><div class="card"><h3>缺陷统计</h3><div style="display: grid; gap: 8px;"><div style="display: flex; justify-content: space-between; padding: 12px; background: #fef2f2; border-radius: 6px;"><span>严重缺陷</span><span style="font-weight: bold; color: #ef4444;">3</span></div></div></div></div>`
-            },
-            factory: {
-                title: '测试工厂',
-                html: `<div class="card"><h3>测试用例工厂</h3><div class="grid" style="grid-template-columns: repeat(4, 1fr);"><button style="padding: 16px; border: 2px dashed #d1d5db; background: transparent; border-radius: 8px; cursor: pointer;"><div style="font-size: 24px; margin-bottom: 8px;">➕</div><p style="font-size: 14px; font-weight: 500;">新建测试</p></button></div></div>`
-            },
-            report: {
-                title: '报告分析',
-                html: `<div class="grid grid-2"><div class="card"><h3>本周测试汇总</h3><div style="display: grid; gap: 8px;"><div style="display: flex; justify-content: space-between; padding: 12px; background: #f0fdf4; border-radius: 6px;"><span>成功</span><span style="font-weight: bold; color: #10b981;">156</span></div></div></div></div>`
-            },
-            monitor: {
-                title: '监控中心',
-                html: `<div class="card"><h3>系统监控</h3><div class="grid grid-2"><div style="padding: 16px; background: #f0fdf4; border-left: 4px solid #10b981; border-radius: 6px;"><p style="font-size: 14px; color: #6b7280;">CPU 使用率</p><p class="num-big" style="color: #10b981;">35%</p></div></div></div>`
-            },
-            decision: {
-                title: '决策系统',
-                html: `<div class="card"><h3>AI 决策引擎</h3><div style="padding: 16px; background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;"><p style="font-weight: 500; color: #312e81;">决策引擎状态</p><p style="font-size: 14px; color: #3730a3; margin-top: 8px;">✓ 在线，所有模型已加载</p></div></div>`
-            },
-            settings: {
-                title: '设置',
-                html: `<div class="card"><h3>系统设置</h3><div><div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid #e5e7eb;"><span>深色模式</span><input type="checkbox" style="width: 20px; height: 20px; cursor: pointer;"></div></div></div>`
-            }
-        };
-        function switchView(viewName) {
-            const view = views[viewName];
-            if (!view) return;
-            document.getElementById('pageTitle').textContent = view.title;
-            document.getElementById('content').innerHTML = view.html;
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-        window.addEventListener('load', () => { switchView('home'); });
-    </script>
-</body>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
