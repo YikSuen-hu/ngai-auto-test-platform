@@ -85,7 +85,7 @@
                 <p id="heroText">智能自服自动化测试平台 V1.0 运行正常。当前有 3 个待优化项目，1 个产重的知识库关键要处理。</p>
                 <div class="hero-buttons">
                     <button class="btn btn-primary" onclick="switchPage('quality')">▶ 开始快速测试</button>
-                    <button class="btn btn-secondary">查看系统健康度</button>
+                    <button class="btn btn-secondary" onclick="switchPage('health')">查看系统健康度</button>
                 </div>
             </div>
 
@@ -889,6 +889,192 @@
                         <div style="padding: 12px; background: linear-gradient(135deg, rgba(255,77,79,0.1) 0%, rgba(245,34,45,0.1) 100%); border-radius: 6px; border-left: 3px solid #ff4d4f;">
                             <div style="font-size: 11px; color: #666; margin-bottom: 8px;">⚠️ 重要提示</div>
                             <div style="font-size: 11px; color: #333; line-height: 1.5;">有 23 个P0级缺陷需要立即处理，建议优先分配资源。</div>
+                        </div>
+                    </div>
+                </div>`
+            },
+            health: {
+                heroTitle: '系统健康度',
+                heroText: '全方位系统监控 · 实时性能分析 · 智能告警预警',
+                content: `<div style="display: grid; grid-template-columns: 1fr 320px; gap: 24px;">
+                    <div>
+                        <!-- 健康度概览 -->
+                        <div class="stats" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 24px;">
+                            <div class="stat-card" style="background: linear-gradient(135deg, #52c41a 0%, #52ad1a 100%); color: white; border: none; position: relative;">
+                                <div style="position: absolute; top: 12px; right: 12px; font-size: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 3px;">✓ 优秀</div>
+                                <div class="stat-label" style="color: rgba(255,255,255,0.8);">系统综合评分</div>
+                                <div class="stat-number" style="color: white; font-size: 42px;">9.2/10</div>
+                                <div class="stat-change" style="color: rgba(255,255,255,0.8);">过去24小时无故障</div>
+                            </div>
+                            <div class="stat-card" style="background: linear-gradient(135deg, #1890ff 0%, #0050b3 100%); color: white; border: none;">
+                                <div style="position: absolute; top: 12px; right: 12px; font-size: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 3px;">✓ 健康</div>
+                                <div class="stat-label" style="color: rgba(255,255,255,0.8);">系统可用性</div>
+                                <div class="stat-number" style="color: white; font-size: 42px;">99.9%</div>
+                                <div class="stat-change" style="color: rgba(255,255,255,0.8);">年均可用性</div>
+                            </div>
+                            <div class="stat-card" style="background: linear-gradient(135deg, #52c41a 0%, #52ad1a 100%); color: white; border: none;">
+                                <div style="position: absolute; top: 12px; right: 12px; font-size: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 3px;">↓ 正常</div>
+                                <div class="stat-label" style="color: rgba(255,255,255,0.8);">平均响应时间</div>
+                                <div class="stat-number" style="color: white;">234ms</div>
+                                <div class="stat-change" style="color: rgba(255,255,255,0.8);">低于健康阈值</div>
+                            </div>
+                            <div class="stat-card" style="background: linear-gradient(135deg, #faad14 0%, #fa8c16 100%); color: white; border: none;">
+                                <div style="position: absolute; top: 12px; right: 12px; font-size: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 3px;">🔔 1</div>
+                                <div class="stat-label" style="color: rgba(255,255,255,0.8);">待处理告警</div>
+                                <div class="stat-number" style="color: white;">1</div>
+                                <div class="stat-change" style="color: rgba(255,255,255,0.8);">1个warning级别</div>
+                            </div>
+                        </div>
+
+                        <!-- 各模块健康状态 -->
+                        <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee; margin-bottom: 24px;">
+                            <h4 style="font-weight: bold; margin-bottom: 20px;">🏥 各模块健康状态</h4>
+                            <div style="display: grid; gap: 12px;">
+                                <div style="padding: 16px; border: 1px solid #f0f0f0; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 500; margin-bottom: 4px;">🗄️ 数据库服务</div>
+                                        <div style="font-size: 11px; color: #999;">PostgreSQL 12.4</div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="color: #52c41a; font-weight: bold; font-size: 12px; margin-bottom: 4px;">✓ 正常</div>
+                                        <div style="font-size: 11px; color: #999;">CPU 23% · 内存 45%</div>
+                                    </div>
+                                </div>
+                                <div style="padding: 16px; border: 1px solid #f0f0f0; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 500; margin-bottom: 4px;">🚀 API服务器</div>
+                                        <div style="font-size: 11px; color: #999;">Node.js 16.13</div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="color: #52c41a; font-weight: bold; font-size: 12px; margin-bottom: 4px;">✓ 正常</div>
+                                        <div style="font-size: 11px; color: #999;">CPU 15% · 内存 32%</div>
+                                    </div>
+                                </div>
+                                <div style="padding: 16px; border: 1px solid #f0f0f0; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 500; margin-bottom: 4px;">💾 缓存服务</div>
+                                        <div style="font-size: 11px; color: #999;">Redis 6.2</div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="color: #52c41a; font-weight: bold; font-size: 12px; margin-bottom: 4px;">✓ 正常</div>
+                                        <div style="font-size: 11px; color: #999;">内存使用 28%</div>
+                                    </div>
+                                </div>
+                                <div style="padding: 16px; border: 1px solid #f0f0f0; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 500; margin-bottom: 4px;">📨 消息队列</div>
+                                        <div style="font-size: 11px; color: #999;">RabbitMQ 3.9</div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="color: #52c41a; font-weight: bold; font-size: 12px; margin-bottom: 4px;">✓ 正常</div>
+                                        <div style="font-size: 11px; color: #999;">队列深度 234</div>
+                                    </div>
+                                </div>
+                                <div style="padding: 16px; border: 1px solid #f0f0f0; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 500; margin-bottom: 4px;">🔍 搜索引擎</div>
+                                        <div style="font-size: 11px; color: #999;">Elasticsearch 7.15</div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="color: #faad14; font-weight: bold; font-size: 12px; margin-bottom: 4px;">⚠ 告警</div>
+                                        <div style="font-size: 11px; color: #999;">磁盘使用 85%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 性能指标详情 -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                            <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                                <h4 style="font-weight: bold; margin-bottom: 20px;">📊 响应时间趋势</h4>
+                                <div style="height: 200px; display: flex; align-items: flex-end; gap: 8px; margin-bottom: 16px;">
+                                    <div style="flex: 1; height: 45%; background: linear-gradient(to top, rgba(82, 196, 26, 0.6), rgba(82, 196, 26, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 50%; background: linear-gradient(to top, rgba(82, 196, 26, 0.6), rgba(82, 196, 26, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 48%; background: linear-gradient(to top, rgba(82, 196, 26, 0.6), rgba(82, 196, 26, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 55%; background: linear-gradient(to top, rgba(82, 196, 26, 0.6), rgba(82, 196, 26, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 52%; background: linear-gradient(to top, rgba(82, 196, 26, 0.6), rgba(82, 196, 26, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 58%; background: linear-gradient(to top, rgba(82, 196, 26, 0.6), rgba(82, 196, 26, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 42%; background: linear-gradient(to top, rgba(82, 196, 26, 0.6), rgba(82, 196, 26, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                </div>
+                                <div style="font-size: 11px; color: #999; text-align: center;">最近7天平均响应时间: 234ms（健康）</div>
+                            </div>
+
+                            <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                                <h4 style="font-weight: bold; margin-bottom: 20px;">🔄 吞吐量变化</h4>
+                                <div style="height: 200px; display: flex; align-items: flex-end; gap: 8px; margin-bottom: 16px;">
+                                    <div style="flex: 1; height: 35%; background: linear-gradient(to top, rgba(24, 144, 255, 0.6), rgba(24, 144, 255, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 65%; background: linear-gradient(to top, rgba(24, 144, 255, 0.6), rgba(24, 144, 255, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 72%; background: linear-gradient(to top, rgba(24, 144, 255, 0.6), rgba(24, 144, 255, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 58%; background: linear-gradient(to top, rgba(24, 144, 255, 0.6), rgba(24, 144, 255, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 82%; background: linear-gradient(to top, rgba(24, 144, 255, 0.6), rgba(24, 144, 255, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 75%; background: linear-gradient(to top, rgba(24, 144, 255, 0.6), rgba(24, 144, 255, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                    <div style="flex: 1; height: 68%; background: linear-gradient(to top, rgba(24, 144, 255, 0.6), rgba(24, 144, 255, 0.3)); border-radius: 4px 4px 0 0;"></div>
+                                </div>
+                                <div style="font-size: 11px; color: #999; text-align: center;">当前吞吐量: 450+ req/s（性能良好）</div>
+                            </div>
+                        </div>
+
+                        <!-- 最近告警 -->
+                        <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                            <h4 style="font-weight: bold; margin-bottom: 16px;">🚨 最近告警事件</h4>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <div style="padding: 12px; border-left: 3px solid #faad14; background: #fffbe6; border-radius: 4px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 6px;">
+                                        <span style="font-weight: 500; font-size: 12px;">⚠ Elasticsearch 磁盘使用率过高</span>
+                                        <span style="font-size: 10px; color: #999;">1小时前</span>
+                                    </div>
+                                    <div style="font-size: 11px; color: #666; margin-bottom: 6px;">磁盘使用率达到85%，建议清理旧索引或扩容</div>
+                                    <button style="padding: 4px 12px; background: #faad14; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 11px;">处理</button>
+                                </div>
+                                <div style="padding: 12px; border-left: 3px solid #52c41a; background: #f6ffed; border-radius: 4px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 6px;">
+                                        <span style="font-weight: 500; font-size: 12px;">✓ 数据库恢复正常</span>
+                                        <span style="font-size: 10px; color: #999;">3小时前</span>
+                                    </div>
+                                    <div style="font-size: 11px; color: #666;">已自动重启，连接池已恢复</div>
+                                </div>
+                                <div style="padding: 12px; border-left: 3px solid #52c41a; background: #f6ffed; border-radius: 4px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 6px;">
+                                        <span style="font-weight: 500; font-size: 12px;">✓ API响应时间恢复</span>
+                                        <span style="font-size: 10px; color: #999;">5小时前</span>
+                                    </div>
+                                    <div style="font-size: 11px; color: #666;">缓存预热完成，响应时间降至234ms</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右侧快速面板 -->
+                    <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee; height: fit-content; position: sticky; top: 100px;">
+                        <h4 style="font-weight: bold; margin-bottom: 16px;">⚡ 实时监控</h4>
+                        
+                        <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0;">
+                            <div style="font-size: 11px; color: #999; margin-bottom: 8px; font-weight: 500;">系统运行时长</div>
+                            <div style="font-size: 24px; font-weight: bold; color: #52c41a; margin-bottom: 4px;">45d 12h</div>
+                            <div style="font-size: 10px; color: #999;">距离下次维护窗口</div>
+                        </div>
+
+                        <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0;">
+                            <div style="font-size: 11px; color: #999; margin-bottom: 8px; font-weight: 500;">CPU平均使用率</div>
+                            <div style="font-size: 24px; font-weight: bold; color: #1890ff; margin-bottom: 4px;">34%</div>
+                            <div style="font-size: 10px; color: #999;">峰值: 67%</div>
+                        </div>
+
+                        <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0;">
+                            <div style="font-size: 11px; color: #999; margin-bottom: 8px; font-weight: 500;">内存使用率</div>
+                            <div style="font-size: 24px; font-weight: bold; color: #6b7cff; margin-bottom: 4px;">56%</div>
+                            <div style="font-size: 10px; color: #999;">阈值: 80%</div>
+                        </div>
+
+                        <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0;">
+                            <div style="font-size: 11px; color: #999; margin-bottom: 8px; font-weight: 500;">网络入流量</div>
+                            <div style="font-size: 24px; font-weight: bold; color: #333; margin-bottom: 4px;">245 Mbps</div>
+                            <div style="font-size: 10px; color: #999;">峰值: 856 Mbps</div>
+                        </div>
+
+                        <div style="padding: 12px; background: linear-gradient(135deg, rgba(82,196,26,0.1) 0%, rgba(82,196,26,0.05) 100%); border-radius: 6px; border-left: 3px solid #52c41a;">
+                            <div style="font-size: 11px; color: #666; margin-bottom: 6px; font-weight: 500;">✓ 系统状态</div>
+                            <div style="font-size: 11px; color: #333; line-height: 1.5;">所有关键服务运行正常，无严重故障风险。</div>
                         </div>
                     </div>
                 </div>`
