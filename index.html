@@ -143,7 +143,175 @@
             home: {
                 heroTitle: '欢迎回来，张工程师',
                 heroText: '智能自服自动化测试平台 V1.0 运行正常。当前有 3 个待优化项目，1 个产重的知识库关键要处理。',
-                content: ''
+                content: `<!-- 快速入口卡片 -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
+                    <div style="background: linear-gradient(135deg, #6b7cff 0%, #7c3aed 100%); color: white; padding: 20px; border-radius: 8px; cursor: pointer; transition: all 0.3s;" onclick="switchPage('dialogue')">
+                        <div style="font-size: 24px; margin-bottom: 8px;">💬</div>
+                        <h3 style="font-weight: bold; margin-bottom: 4px;">对话管理</h3>
+                        <p style="font-size: 12px; opacity: 0.9;">流程设计与调试</p>
+                        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 11px;">3 个待处理</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #52c41a 0%, #52ad1a 100%); color: white; padding: 20px; border-radius: 8px; cursor: pointer; transition: all 0.3s;" onclick="switchPage('knowledge')">
+                        <div style="font-size: 24px; margin-bottom: 8px;">📚</div>
+                        <h3 style="font-weight: bold; margin-bottom: 4px;">知识库</h3>
+                        <p style="font-size: 12px; opacity: 0.9;">内容管理与维护</p>
+                        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 11px;">334 条内容</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #1890ff 0%, #0050b3 100%); color: white; padding: 20px; border-radius: 8px; cursor: pointer; transition: all 0.3s;" onclick="switchPage('quality')">
+                        <div style="font-size: 24px; margin-bottom: 8px;">✅</div>
+                        <h3 style="font-weight: bold; margin-bottom: 4px;">质量中心</h3>
+                        <p style="font-size: 12px; opacity: 0.9;">缺陷追踪与管理</p>
+                        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 11px;">23 个P0缺陷</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #faad14 0%, #fa8c16 100%); color: white; padding: 20px; border-radius: 8px; cursor: pointer; transition: all 0.3s;" onclick="switchPage('report')">
+                        <div style="font-size: 24px; margin-bottom: 8px;">📊</div>
+                        <h3 style="font-weight: bold; margin-bottom: 4px;">报表分析</h3>
+                        <p style="font-size: 12px; opacity: 0.9;">数据分析与洞察</p>
+                        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 11px;">8,234 个用例</div>
+                    </div>
+                </div>
+
+                <!-- 最近项目 + 待办任务 -->
+                <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; margin-bottom: 24px;">
+                    <!-- 最近项目 -->
+                    <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                        <h4 style="font-weight: bold; margin-bottom: 16px; font-size: 14px;">🚀 最近项目</h4>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="padding: 12px; border: 1px solid #f0f0f0; border-radius: 6px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#6b7cff'; this.style.boxShadow='0 2px 8px rgba(107,124,255,0.15)';" onmouseout="this.style.borderColor='#f0f0f0'; this.style.boxShadow='none';" onclick="switchPage('dialogue')">
+                                <div style="font-weight: 500; margin-bottom: 4px;">退款申请场景</div>
+                                <div style="font-size: 11px; color: #999;">9个步骤 · 测试中</div>
+                                <div style="margin-top: 8px; display: flex; gap: 8px;">
+                                    <button style="padding: 4px 12px; background: #f0f0f0; border: none; border-radius: 3px; cursor: pointer; font-size: 11px;">查看</button>
+                                    <button style="padding: 4px 12px; background: #6b7cff; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 11px;">运行测试</button>
+                                </div>
+                            </div>
+                            <div style="padding: 12px; border: 1px solid #f0f0f0; border-radius: 6px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#52c41a'; this.style.boxShadow='0 2px 8px rgba(82,196,26,0.15)';" onmouseout="this.style.borderColor='#f0f0f0'; this.style.boxShadow='none';" onclick="switchPage('quality')">
+                                <div style="font-weight: 500; margin-bottom: 4px;">订单查询流程</div>
+                                <div style="font-size: 11px; color: #999;">6个步骤 · 已激活</div>
+                                <div style="margin-top: 8px; display: flex; gap: 8px;">
+                                    <button style="padding: 4px 12px; background: #f0f0f0; border: none; border-radius: 3px; cursor: pointer; font-size: 11px;">查看</button>
+                                    <button style="padding: 4px 12px; background: #52c41a; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 11px;">运行测试</button>
+                                </div>
+                            </div>
+                            <div style="padding: 12px; border: 1px solid #f0f0f0; border-radius: 6px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#1890ff'; this.style.boxShadow='0 2px 8px rgba(24,144,255,0.15)';" onmouseout="this.style.borderColor='#f0f0f0'; this.style.boxShadow='none';" onclick="switchPage('knowledge')">
+                                <div style="font-weight: 500; margin-bottom: 4px;">知识库更新维护</div>
+                                <div style="font-size: 11px; color: #999;">28条待审核 · 高优先级</div>
+                                <div style="margin-top: 8px; display: flex; gap: 8px;">
+                                    <button style="padding: 4px 12px; background: #f0f0f0; border: none; border-radius: 3px; cursor: pointer; font-size: 11px;">查看</button>
+                                    <button style="padding: 4px 12px; background: #1890ff; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 11px;">开始审核</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 待办任务 -->
+                    <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                        <h4 style="font-weight: bold; margin-bottom: 16px; font-size: 14px;">✓ 待办任务</h4>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="padding: 10px; background: #fff3cd; border-left: 3px solid #faad14; border-radius: 4px; cursor: pointer;">
+                                <div style="font-size: 12px; font-weight: 500; margin-bottom: 2px;">修复P0级缺陷</div>
+                                <div style="font-size: 10px; color: #666;">23个待处理</div>
+                            </div>
+                            <div style="padding: 10px; background: #f8d7da; border-left: 3px solid #ff4d4f; border-radius: 4px; cursor: pointer;">
+                                <div style="font-size: 12px; font-weight: 500; margin-bottom: 2px;">覆盖率提升任务</div>
+                                <div style="font-size: 10px; color: #666;">需达到95%目标</div>
+                            </div>
+                            <div style="padding: 10px; background: #d1ecf1; border-left: 3px solid #1890ff; border-radius: 4px; cursor: pointer;">
+                                <div style="font-size: 12px; font-weight: 500; margin-bottom: 2px;">知识库审核</div>
+                                <div style="font-size: 10px; color: #666;">28条内容待审</div>
+                            </div>
+                            <div style="padding: 10px; background: #d4edda; border-left: 3px solid #52c41a; border-radius: 4px; cursor: pointer;">
+                                <div style="font-size: 12px; font-weight: 500; margin-bottom: 2px;">周报汇总分析</div>
+                                <div style="font-size: 10px; color: #666;">每周一上午10点</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 性能指标 + 团队成员 -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <!-- 实时性能 -->
+                    <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                        <h4 style="font-weight: bold; margin-bottom: 16px;">⚡ 系统性能实时监控</h4>
+                        <div style="display: grid; gap: 12px;">
+                            <div style="padding: 12px; background: #f5f5f5; border-radius: 6px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 12px; color: #666;">测试通过率</span>
+                                    <span style="font-weight: bold; color: #52c41a; font-size: 14px;">96.8%</span>
+                                </div>
+                                <div style="margin-top: 8px; height: 6px; background: #e8e8e8; border-radius: 3px; overflow: hidden;">
+                                    <div style="width: 96.8%; height: 100%; background: linear-gradient(to right, #52c41a, #52ad1a);"></div>
+                                </div>
+                            </div>
+                            <div style="padding: 12px; background: #f5f5f5; border-radius: 6px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 12px; color: #666;">代码覆盖率</span>
+                                    <span style="font-weight: bold; color: #1890ff; font-size: 14px;">87.3%</span>
+                                </div>
+                                <div style="margin-top: 8px; height: 6px; background: #e8e8e8; border-radius: 3px; overflow: hidden;">
+                                    <div style="width: 87.3%; height: 100%; background: linear-gradient(to right, #1890ff, #0050b3);"></div>
+                                </div>
+                            </div>
+                            <div style="padding: 12px; background: #f5f5f5; border-radius: 6px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 12px; color: #666;">缺陷解决率</span>
+                                    <span style="font-weight: bold; color: #faad14; font-size: 14px;">67.9%</span>
+                                </div>
+                                <div style="margin-top: 8px; height: 6px; background: #e8e8e8; border-radius: 3px; overflow: hidden;">
+                                    <div style="width: 67.9%; height: 100%; background: linear-gradient(to right, #faad14, #fa8c16);"></div>
+                                </div>
+                            </div>
+                            <div style="padding: 12px; background: #f5f5f5; border-radius: 6px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 12px; color: #666;">系统可用性</span>
+                                    <span style="font-weight: bold; color: #6b7cff; font-size: 14px;">99.9%</span>
+                                </div>
+                                <div style="margin-top: 8px; height: 6px; background: #e8e8e8; border-radius: 3px; overflow: hidden;">
+                                    <div style="width: 99.9%; height: 100%; background: linear-gradient(to right, #6b7cff, #7c3aed);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 团队成员 -->
+                    <div style="background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee;">
+                        <h4 style="font-weight: bold; margin-bottom: 16px;">👥 团队成员与分配</h4>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 6px; cursor: pointer;" onmouseover="this.style.background='#f5f5f5';" onmouseout="this.style.background='transparent';">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #6b7cff 0%, #7c3aed 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">张</div>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 500; font-size: 12px;">张晓明</div>
+                                    <div style="font-size: 11px; color: #999;">高级测试工程师</div>
+                                </div>
+                                <div style="font-size: 11px; color: #6b7cff; font-weight: bold;">12 项任务</div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 6px; cursor: pointer;" onmouseover="this.style.background='#f5f5f5';" onmouseout="this.style.background='transparent';">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #52c41a 0%, #52ad1a 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">王</div>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 500; font-size: 12px;">王思琪</div>
+                                    <div style="font-size: 11px; color: #999;">测试工程师</div>
+                                </div>
+                                <div style="font-size: 11px; color: #6b7cff; font-weight: bold;">8 项任务</div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 6px; cursor: pointer;" onmouseover="this.style.background='#f5f5f5';" onmouseout="this.style.background='transparent';">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #1890ff 0%, #0050b3 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">李</div>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 500; font-size: 12px;">李飞扬</div>
+                                    <div style="font-size: 11px; color: #999;">QA主管</div>
+                                </div>
+                                <div style="font-size: 11px; color: #6b7cff; font-weight: bold;">15 项任务</div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 6px; cursor: pointer;" onmouseover="this.style.background='#f5f5f5';" onmouseout="this.style.background='transparent';">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #faad14 0%, #fa8c16 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">女</div>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 500; font-size: 12px;">李晓红</div>
+                                    <div style="font-size: 11px; color: #999;">测试工程师</div>
+                                </div>
+                                <div style="font-size: 11px; color: #6b7cff; font-weight: bold;">6 项任务</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
             },
             dialogue: {
                 heroTitle: '对话管理',
