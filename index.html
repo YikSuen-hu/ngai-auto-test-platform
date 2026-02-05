@@ -1,62 +1,305 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NGAI 智能客服自动化测试系统</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f5f5; color: #333; }
-        .header { background: white; border-bottom: 1px solid #eee; padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; }
-        .logo-section { display: flex; align-items: center; gap: 16px; }
-        .logo { width: 40px; height: 40px; background: linear-gradient(135deg, #5b7cff 0%, #6b5dd6 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px; }
-        .logo-text { font-size: 14px; font-weight: bold; color: #333; }
-        .logo-sub { font-size: 10px; color: #6b7cff; letter-spacing: 2px; }
-        .nav { display: flex; gap: 32px; flex: 1; margin-left: 48px; }
-        .nav-item { display: flex; align-items: center; gap: 8px; color: #333; text-decoration: none; font-size: 14px; padding: 8px 0; cursor: pointer; border-bottom: 2px solid transparent; }
-        .nav-item:hover { color: #6b7cff; }
-        .nav-item.active { color: #6b7cff; border-bottom-color: #6b7cff; }
-        .header-right { display: flex; align-items: center; gap: 24px; }
-        .icon-btn { background: none; border: none; cursor: pointer; font-size: 20px; color: #666; }
-        .user-info { display: flex; align-items: center; gap: 12px; font-size: 14px; }
-        .avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #5b7cff 0%, #6b5dd6 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        .main { display: grid; grid-template-columns: 1fr 320px; gap: 24px; padding: 32px; }
-        .hero { background: linear-gradient(135deg, #5b7cff 0%, #7c3aed 100%); color: white; border-radius: 12px; padding: 40px; margin-bottom: 24px; position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; right: -50px; top: -50px; width: 300px; height: 300px; background: rgba(255,255,255,0.1); border-radius: 50%; }
-        .hero h2 { font-size: 32px; margin-bottom: 12px; position: relative; z-index: 1; }
-        .hero p { opacity: 0.9; font-size: 14px; position: relative; z-index: 1; line-height: 1.6; }
-        .hero-buttons { display: flex; gap: 16px; margin-top: 24px; position: relative; z-index: 1; }
-        .btn { padding: 10px 24px; border-radius: 6px; border: none; font-weight: 500; cursor: pointer; font-size: 14px; }
-        .btn-primary { background: white; color: #5b7cff; }
-        .btn-secondary { background: transparent; border: 2px solid white; color: white; }
-        .btn:hover { opacity: 0.9; }
-        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
-        .stat-card { background: white; padding: 24px; border-radius: 8px; border: 1px solid #eee; }
-        .stat-label { font-size: 12px; color: #999; margin-bottom: 8px; }
-        .stat-number { font-size: 36px; font-weight: bold; color: #333; margin-bottom: 8px; }
-        .stat-change { font-size: 12px; color: #52c41a; }
-        .sidebar { }
-        .sidebar-card { background: white; border-radius: 8px; border: 1px solid #eee; padding: 20px; }
-        .sidebar-title { font-size: 16px; font-weight: bold; color: #333; margin-bottom: 16px; }
-        .notification { padding: 12px 0; border-bottom: 1px solid #f0f0f0; display: flex; gap: 12px; }
-        .notification:last-child { border-bottom: none; }
-        .notification-icon { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold; flex-shrink: 0; }
-        .notification-content { flex: 1; }
-        .notification-text { font-size: 12px; color: #666; line-height: 1.5; }
-        .notification-time { font-size: 10px; color: #999; margin-top: 4px; }
-        .warning { background: #fff3cd; }
-        .info { background: #d1ecf1; }
-        .success { background: #d4edda; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #eee;
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #5b7cff 0%, #6b5dd6 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .logo-sub {
+            font-size: 10px;
+            color: #6b7cff;
+            letter-spacing: 2px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 32px;
+            flex: 1;
+            margin-left: 48px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 0;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-item:hover {
+            color: #6b7cff;
+        }
+
+        .nav-item.active {
+            color: #6b7cff;
+            border-bottom-color: #6b7cff;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            color: #666;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #5b7cff 0%, #6b5dd6 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .main {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 24px;
+            padding: 32px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #5b7cff 0%, #7c3aed 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            right: -50px;
+            top: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero h2 {
+            font-size: 32px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            opacity: 0.9;
+            font-size: 14px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #5b7cff;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .stat-change {
+            font-size: 12px;
+            color: #52c41a;
+        }
+
+        .sidebar {}
+
+        .sidebar-card {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            padding: 20px;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        .notification {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            gap: 12px;
+        }
+
+        .notification:last-child {
+            border-bottom: none;
+        }
+
+        .notification-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-text {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .notification-time {
+            font-size: 10px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .warning {
+            background: #fff3cd;
+        }
+
+        .info {
+            background: #d1ecf1;
+        }
+
+        .success {
+            background: #d4edda;
+        }
     </style>
 </head>
+
 <body>
     <div class="header">
         <div class="logo-section">
-            <div class="logo">⚡</div>
-            <div>
-                <div class="logo-text">NGAI</div>
-                <div class="logo-sub">AUTOMATION TEST</div>
-            </div>
+            <img src="/logo.png" alt="NGAI Logo" style="height: 50px; width: auto;">
         </div>
         <nav class="nav">
             <a class="nav-item active" onclick="switchPage('home')">🏠 首页</a>
@@ -68,9 +311,9 @@
         <div class="header-right">
             <button class="icon-btn">🔔</button>
             <div class="user-info">
-                <div class="avatar">张</div>
+                <div class="avatar">一</div>
                 <div>
-                    <div style="font-weight: 500;">张工程师</div>
+                    <div style="font-weight: 500;">员工一</div>
                     <div style="font-size: 12px; color: #999;">高级测试工程师</div>
                 </div>
             </div>
@@ -81,7 +324,7 @@
     <div class="main">
         <div>
             <div class="hero">
-                <h2 id="heroTitle">欢迎回来，张工程师</h2>
+                <h2 id="heroTitle">欢迎回来，员工一</h2>
                 <p id="heroText">智能自服自动化测试平台 V1.0 运行正常。当前有 3 个待优化项目，1 个产重的知识库关键要处理。</p>
                 <div class="hero-buttons">
                     <button class="btn btn-primary" onclick="switchPage('quality')">▶ 开始快速测试</button>
@@ -141,7 +384,7 @@
     <script>
         const pages = {
             home: {
-                heroTitle: '欢迎回来，张工程师',
+                heroTitle: '欢迎回来，员工一',
                 heroText: '智能自服自动化测试平台 V1.0 运行正常。当前有 3 个待优化项目，1 个产重的知识库关键要处理。',
                 content: `<!-- 快速入口卡片 -->
                 <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
@@ -278,33 +521,33 @@
                         <h4 style="font-weight: bold; margin-bottom: 16px;">👥 团队成员与分配</h4>
                         <div style="display: flex; flex-direction: column; gap: 12px;">
                             <div style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 6px; cursor: pointer;" onmouseover="this.style.background='#f5f5f5';" onmouseout="this.style.background='transparent';">
-                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #6b7cff 0%, #7c3aed 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">张</div>
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #6b7cff 0%, #7c3aed 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">一</div>
                                 <div style="flex: 1;">
-                                    <div style="font-weight: 500; font-size: 12px;">张晓明</div>
+                                    <div style="font-weight: 500; font-size: 12px;">员工一</div>
                                     <div style="font-size: 11px; color: #999;">高级测试工程师</div>
                                 </div>
                                 <div style="font-size: 11px; color: #6b7cff; font-weight: bold;">12 项任务</div>
                             </div>
                             <div style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 6px; cursor: pointer;" onmouseover="this.style.background='#f5f5f5';" onmouseout="this.style.background='transparent';">
-                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #52c41a 0%, #52ad1a 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">王</div>
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #52c41a 0%, #52ad1a 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">二</div>
                                 <div style="flex: 1;">
-                                    <div style="font-weight: 500; font-size: 12px;">王思琪</div>
+                                    <div style="font-weight: 500; font-size: 12px;">员工二</div>
                                     <div style="font-size: 11px; color: #999;">测试工程师</div>
                                 </div>
                                 <div style="font-size: 11px; color: #6b7cff; font-weight: bold;">8 项任务</div>
                             </div>
                             <div style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 6px; cursor: pointer;" onmouseover="this.style.background='#f5f5f5';" onmouseout="this.style.background='transparent';">
-                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #1890ff 0%, #0050b3 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">李</div>
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #1890ff 0%, #0050b3 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">三</div>
                                 <div style="flex: 1;">
-                                    <div style="font-weight: 500; font-size: 12px;">李飞扬</div>
+                                    <div style="font-weight: 500; font-size: 12px;">员工三</div>
                                     <div style="font-size: 11px; color: #999;">QA主管</div>
                                 </div>
                                 <div style="font-size: 11px; color: #6b7cff; font-weight: bold;">15 项任务</div>
                             </div>
                             <div style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 6px; cursor: pointer;" onmouseover="this.style.background='#f5f5f5';" onmouseout="this.style.background='transparent';">
-                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #faad14 0%, #fa8c16 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">女</div>
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #faad14 0%, #fa8c16 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">四</div>
                                 <div style="flex: 1;">
-                                    <div style="font-weight: 500; font-size: 12px;">李晓红</div>
+                                    <div style="font-weight: 500; font-size: 12px;">员工四</div>
                                     <div style="font-size: 11px; color: #999;">测试工程师</div>
                                 </div>
                                 <div style="font-size: 11px; color: #6b7cff; font-weight: bold;">6 项任务</div>
@@ -818,7 +1061,7 @@
                                         <td style="padding: 12px 0; font-size: 12px;">订单查询超时问题</td>
                                         <td style="padding: 12px 0;"><span style="background: #ffebee; color: #ff4d4f; padding: 3px 8px; border-radius: 3px; font-size: 10px;">P0</span></td>
                                         <td style="padding: 12px 0;"><span style="color: #ff4d4f; font-size: 12px; font-weight: bold;">待处理</span></td>
-                                        <td style="padding: 12px 0; font-size: 12px;">张晓明</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">员工一</td>
                                         <td style="padding: 12px 0; font-size: 12px; color: #999;">2025-03-29</td>
                                     </tr>
                                     <tr style="border-bottom: 1px solid #f0f0f0;">
@@ -826,7 +1069,7 @@
                                         <td style="padding: 12px 0; font-size: 12px;">退款申请验证错误</td>
                                         <td style="padding: 12px 0;"><span style="background: #fff2e8; color: #faad14; padding: 3px 8px; border-radius: 3px; font-size: 10px;">P1</span></td>
                                         <td style="padding: 12px 0;"><span style="color: #faad14; font-size: 12px; font-weight: bold;">处理中</span></td>
-                                        <td style="padding: 12px 0; font-size: 12px;">王思琪</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">员工二</td>
                                         <td style="padding: 12px 0; font-size: 12px; color: #999;">2025-03-28</td>
                                     </tr>
                                     <tr style="border-bottom: 1px solid #f0f0f0;">
@@ -834,7 +1077,7 @@
                                         <td style="padding: 12px 0; font-size: 12px;">用户登录不一致</td>
                                         <td style="padding: 12px 0;"><span style="background: #e6f7ff; color: #1890ff; padding: 3px 8px; border-radius: 3px; font-size: 10px;">P2</span></td>
                                         <td style="padding: 12px 0;"><span style="color: #52c41a; font-size: 12px; font-weight: bold;">已验证</span></td>
-                                        <td style="padding: 12px 0; font-size: 12px;">李飞扬</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">员工三</td>
                                         <td style="padding: 12px 0; font-size: 12px; color: #999;">2025-03-27</td>
                                     </tr>
                                     <tr style="border-bottom: 1px solid #f0f0f0;">
@@ -842,7 +1085,7 @@
                                         <td style="padding: 12px 0; font-size: 12px;">支付流程崩溃</td>
                                         <td style="padding: 12px 0;"><span style="background: #fff2e8; color: #faad14; padding: 3px 8px; border-radius: 3px; font-size: 10px;">P1</span></td>
                                         <td style="padding: 12px 0;"><span style="color: #999; font-size: 12px;">已关闭</span></td>
-                                        <td style="padding: 12px 0; font-size: 12px;">李晓红</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">员工四</td>
                                         <td style="padding: 12px 0; font-size: 12px; color: #999;">2025-03-26</td>
                                     </tr>
                                 </tbody>
@@ -1250,7 +1493,7 @@
                                         <td style="padding: 12px 0;"><span style="color: #52c41a; font-weight: bold;">228</span></td>
                                         <td style="padding: 12px 0;"><span style="color: #ff4d4f; font-weight: bold;">6</span></td>
                                         <td style="padding: 12px 0; font-size: 12px;">2025-01-30 14:32</td>
-                                        <td style="padding: 12px 0; font-size: 12px;">张晓明</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">员工一</td>
                                         <td style="padding: 12px 0; font-size: 12px; color: #6b7cff; cursor: pointer;">查看详情</td>
                                     </tr>
                                     <tr style="border-bottom: 1px solid #f0f0f0;">
@@ -1260,7 +1503,7 @@
                                         <td style="padding: 12px 0;"><span style="color: #52c41a; font-weight: bold;">187</span></td>
                                         <td style="padding: 12px 0;"><span style="color: #ff4d4f; font-weight: bold;">2</span></td>
                                         <td style="padding: 12px 0; font-size: 12px;">2025-01-30 11:45</td>
-                                        <td style="padding: 12px 0; font-size: 12px;">王思琪</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">员工二</td>
                                         <td style="padding: 12px 0; font-size: 12px; color: #6b7cff; cursor: pointer;">查看详情</td>
                                     </tr>
                                     <tr style="border-bottom: 1px solid #f0f0f0;">
@@ -1270,7 +1513,7 @@
                                         <td style="padding: 12px 0;"><span style="color: #52c41a; font-weight: bold;">251</span></td>
                                         <td style="padding: 12px 0;"><span style="color: #ff4d4f; font-weight: bold;">16</span></td>
                                         <td style="padding: 12px 0; font-size: 12px;">2025-01-30 09:18</td>
-                                        <td style="padding: 12px 0; font-size: 12px;">李飞扬</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">员工三</td>
                                         <td style="padding: 12px 0; font-size: 12px; color: #6b7cff; cursor: pointer;">查看详情</td>
                                     </tr>
                                     <tr>
@@ -1280,7 +1523,7 @@
                                         <td style="padding: 12px 0;"><span style="color: #52c41a; font-weight: bold;">156</span></td>
                                         <td style="padding: 12px 0;"><span style="color: #999;">0</span></td>
                                         <td style="padding: 12px 0; font-size: 12px;">2025-01-30 07:32</td>
-                                        <td style="padding: 12px 0; font-size: 12px;">李晓红</td>
+                                        <td style="padding: 12px 0; font-size: 12px;">员工四</td>
                                         <td style="padding: 12px 0; font-size: 12px; color: #6b7cff; cursor: pointer;">查看详情</td>
                                     </tr>
                                 </tbody>
@@ -1411,14 +1654,15 @@
         function switchPage(page) {
             const data = pages[page];
             if (!data) return;
-            
+
             document.getElementById('heroTitle').textContent = data.heroTitle;
             document.getElementById('heroText').textContent = data.heroText;
             document.getElementById('content').innerHTML = data.content;
-            
+
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             event.target.classList.add('active');
         }
     </script>
 </body>
+
 </html>
